@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- <default-servlet-handler/> 태그 미사용시 
+		방법1] wepapp/reosurces디렉토리에만 스태틱 리소스를 넣거나 
+		방법2] wepapp아래 리소스 종류별로 디렉토리 생성후 
+		<resources mapping="/접근URL/**" location="/디렉토리명/" 
+		/>식으로 계속 추가해 주어야한다. 
+		방법3] <default-servlet-handler/>태그 추가 
+	-->
+		<!--  
+		mapping 속성 : HTML에서 경로지정시 사용할 가상의 이름 
+		location:wepapp아래의 실제 디렉토리 경로 -->
+	<!--방법1] -->
+	<!--  
+	<resources mapping="/resources/**" location="/resources/" />
+	-->
+	<!--resources 매핑이름을 static으로 변경 html에서는 static으로 경로지정 -->	
+	<!--  
+	<resources mapping="/static/**" location="/resources/" />
+	-->
+	<!-- 방법2] -->
+	<!-- 
+	<resources location="/resources/images/" mapping="/images/**"/>
+	<resources location="/resources/styles/" mapping="/styles/**"/>
+	-->
+	<!-- 방법3] webapp아래 아무곳이나 폴더를 만들어 리소스를 두도록 설정 추가 -->
+	<!-- webapp의 어느 디렉토리에 스태틱 리소스(이미지,.css,.js등)를 두더라도 읽어 올수 있도록 설정하는 부분 -->
+	<default-servlet-handler/>
+	
+	
+	
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 
+	 <context:component-scan base-package="최상위 패키지명"/>
+	 -최상위 패키지부터 하위 패키 안에 있는
+	   모든 컴포넌트(자바 클래스)를 자동으로 생성해준다
+	   즉 설정파일에 빈을 등록할 필요 없다.
+	 
+	 단, class앞에 @Controller,@Component,@Service,@Repository
+	 가 붙은 클래스만 생성해 준다.
+	 각 클래스의 성격에 따라 적절한 어노테이션을 붙이자
+	 @Controller:사용자 요청을 처리하는 클래스
+	 @Service : 서비스 역할을 하는 클래스
+	 @Repository:DAO계열 클래스
+	 @Component:기타 클래스
+	 
+	 -스프링 2.5 버전에서 등장.이전 버전의 스프링에서는 모든 빈들은 XML 파일에 설정해야함.  
+	 -최상위 패키지 안의 클래스들을 스캔하고 위 어노테이션이 붙은 클래스들의 인스턴스를 생성
+	 -@Autowired 와 @Qualifier 어노테이션을 활성화
+	 -annotation-config선언 불필요
+	 
+	 
+	   ※<context:annotation-config>
+	 -ApplicationContext 안에 이미 등록된 Bean들의 Annotation을 활성화(@Autowired 및 @Resource등)하기 위해 사용
+	 -component-scan과의 차이점은 이 설정은 빈을 생성하지는 않는다
+	  --> 
+	
+	<context:component-scan base-package="com.kosmo.springapp" />
+	<!--  
+	<beans:bean class="com.kosmo.springapp.HomeController"/>
+	<beans:bean class="com.kosmo.springapp.IndexController"/>
+	-->
+	<!-- 원칙: .do요청과 매핑된 클래스는 bean설정 파일에 하나만 등록 가능 여러개 동시 등록시 "There is already 
+		handler of type 컨트롤러클래스 mapped" 에러 발생 단, .do 요청과 매핑을 하지 않은 기타 클래스는 여러개 등록 
+		가능 -->
+	<!-- BeanNameUrlHandlerMapping -->
+	<!-- 
+		-기본 핸들러 매핑 
+		-빈의 이름에 지정한 요청명(URL패턴)과 컨트롤러 클래스를 매핑
+		 bean엘리먼트의 
+		 name속성에 컨텍스트 
+		 루트를 제외한 경로 지정(반드시 /부터) 
+		 class속성에는 요청을 처리할 컨트롤러 클래스 지정 -->
+	<!--  
+	<beans:bean name="/HandlerMapping/BeanNameUrl.do" class="com.kosmo.springapp.basic.handlermapping.BeanNameUrlController"/>
+	-->
+	<!-- DefaultAnnotationHandlerMapping -->
+	<!-- 
+		-기본 핸들러 매핑 
+		-class속성 필수(name속성 불필요) 
+		-요청과 매핑은 class속성에 지정한 컨트롤러 클래스의 어노테이션으로 매핑 -->
+	<!--  
+	<beans:bean class="com.kosmo.springapp.basic.handlermapping.AnnotationController"/>	
+	-->
+	<!-- SimpleUrlHandlerMapping -->
+	<!-- 
+		-기본 핸들러 매핑이 아님으로 사용시에는 반드시 xml파일에 bean으로 등록		
+		-한 섹션안에서 여러 요청과 컨트롤러 클래스를 관리하고자 할때 주로 사용 -->
+	<!--아래는 new SimpleUrlHandlerMapping().setMappings(Properties) 와 같다 -->
+	<!-- key: 요청명(URL 패턴)(.do) 
+		<prop>엘리먼트 사이에는 컨트롤러 
+		클래스의 id값 지정 -->
+	<!-- 반드시 order 속성 지정 -->
+	<!--  
+	<beans:bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<beans:property name="order" value="1"/>
+		<beans:property name="mappings">
+			<beans:props>
+				<beans:prop key="/HandlerMapping/SimpleUrlFirst.do">first</beans:prop>
+				<beans:prop key="/HandlerMapping/SimpleUrlSecond.do">second</beans:prop>
+			</beans:props>
+		</beans:property>	
+	</beans:bean>
+	-->
+	
+	<!-- 요청을 처리할 빈 등록 -->
+	<!-- SimpleUrlFirstController first = new SimpleUrlFirstController() 즉 id값이 
+		 인스턴스변수와 같다. 프레임웍이 빈 생성시 위와 같이 생성해줌. -->
+	<!--  
+	<beans:bean id="first" class="com.kosmo.springapp.basic.handlermapping.SimpleUrlFirstController"/>
+	<beans:bean id="second" class="com.kosmo.springapp.basic.handlermapping.SimpleUrlSecondController"/>		
+	-->
+</beans:beans>
