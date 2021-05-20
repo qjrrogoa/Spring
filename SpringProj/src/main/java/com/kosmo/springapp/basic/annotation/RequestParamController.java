@@ -35,9 +35,9 @@ public class RequestParamController {
 		//@RequestParam 사용시 - 나이를 숫자가 아닌 값 입력시 오류 처리]
 		@ExceptionHandler({Exception.class})
 		public String error(Exception e, Model model) {
-//1.			//model.addAttribute("errorNumber","Please Input Number in the Years Field");
-//1.			//return "annotation06/Annotation";
-			return "annotation06/Annotation.jsp?error=";
+			model.addAttribute("errorNumber","Please Input Number in the Years Field");
+			return "annotation06/Annotation";
+//2.			return "annotation06/Annotation.jsp?error=";
 		}
 		
 		@RequestMapping("/RequestParamEqual.do")
