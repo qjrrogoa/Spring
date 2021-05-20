@@ -7,3 +7,6 @@
     ModalAndView -> DispatcherServelt -> 데이터와 뷰 부분을 받음
     ViewResolver -> DispatcherServelt -> 어떤 뷰 객체 사용하는지 (jsp, excel, pdf등등)
     View -> 응답
+
+
+    Server시작 -> application 시작 -> web.xml
