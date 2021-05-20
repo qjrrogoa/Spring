@@ -23,6 +23,30 @@ public class IndexController {
 	public String controller() {
 		//뷰정보 반환]
 		return "controller02/Controller";
-	}///////////////////handlerMapping()
+	}///////////////////controllerMapping()
+	
+	@RequestMapping("/viewresolver.do")
+	public String viewresolver() {
+		//뷰정보 반환]
+		return "viewresolver03/ViewResolver";
+	}///////////////////viewresolverMapping()
+	
+	@RequestMapping("/returntype.do")
+	public String returntype() {
+		//뷰정보 반환]
+		return "returntype04/ReturnType";
+	}///////////////////returntypeMapping()
+	
+	@RequestMapping("/injection.do")
+	public String injection() {
+		//뷰정보 반환]
+		return "injection05/Injection";
+	}///////////////////injectionMapping()
+	
+	@RequestMapping("/annotation.do")
+	public String annotation() {
+		//뷰정보 반환]
+		return "annotation06/Annotation";
+	}///////////////////annotationMapping()
 
 }

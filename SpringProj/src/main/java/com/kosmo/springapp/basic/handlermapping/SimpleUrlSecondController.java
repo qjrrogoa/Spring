@@ -17,5 +17,4 @@ public class SimpleUrlSecondController extends AbstractController {
 	
 		return new ModelAndView("handlermapping01/HandlerMapping","message","[SimpleUrlSecond.do]");
 	}
-
 }

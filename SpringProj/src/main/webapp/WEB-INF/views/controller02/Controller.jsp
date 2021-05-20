@@ -38,9 +38,28 @@
 					<li><a href="<c:url value="/Controller/OneClass/Edit.do"/>">수정 요청</a></li>
 					<li><a href="<c:url value="/Controller/OneClass/Delete.do"/>">삭제 요청</a></li>
 					<li><a href="<c:url value="/Controller/OneClass/View.do"/>">상세보기 요청</a></li>
-				
 				</ul>
+				
+				<h2>하나의 컨트롤러 메서드로 여러 요청 처리하기-String []사용</h2>
+				<ul>
+					<li><a href="<c:url value="/Controller/OneMethod/List.do?paramvar=1"/>">목록 요청</a></li>
+					<li><a href="<c:url value="/Controller/OneMethod/Edit.do?paramvar=2"/>">수정 요청</a></li>
+					<li><a href="<c:url value="/Controller/OneMethod/Delete.do?paramvar=3"/>">삭제 요청</a></li>
+					<li><a href="<c:url value="/Controller/OneMethod/View.do?paramvar=4"/>">상세보기 요청</a></li>
+				</ul>
+				
+				<h2>하나의 컨트롤러 메서드로 여러 요청 처리하기-URL패턴상의 패스로 구분</h2>
+				<ul>
+					<li><a href="<c:url value="/Controller/OneMethodNoParam/List.do"/>">목록 요청</a></li>
+					<li><a href="<c:url value="/Controller/OneMethodNoParam/Edit.do"/>">수정 요청</a></li>
+					<li><a href="<c:url value="/Controller/OneMethodNoParam/Delete.do"/>">삭제 요청</a></li>
+					<li><a href="<c:url value="/Controller/OneMethodNoParam/View.do"/>">상세보기 요청</a></li>
+				</ul>
+				
+				
 			</fieldset>
+			
+			
 			
 		</div>
 	</div>

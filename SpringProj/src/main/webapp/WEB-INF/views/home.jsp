@@ -44,11 +44,16 @@
 			<h2>&lt;resources&gt;태그 미 사용:&lt;default-servlet-handler/&gt;-디렉토리 구조로 매핑</h2>
 			<img src="<c:url value="/images/sumnail.png"/>" alt="디렉토리구조로 접근"/>
 		</fieldset>
+		
 		<fieldset>
 			<legend>스프링 익히기</legend>
 			<ul style="list-style: decimal;">
 				<li><a href="<c:url value="/handlermapping.do"/>">핸들러 매핑</a></li>
 				<li><a href="<c:url value="/controller.do"/>">컨트롤러</a></li>
+				<li><a href="<c:url value="/viewresolver.do"/>">뷰 리졸버</a></li>
+				<li><a href="<c:url value="/returntype.do"/>">컨트롤러 메소드의 반환타입</a></li>
+				<li><a href="<c:url value="/injection.do"/>">Dependency Injection(의존성 주입)</a></li>
+				<li><a href="<c:url value="/annotation.do"/>">Annotation</a></li>
 			</ul>
 		</fieldset>
 		

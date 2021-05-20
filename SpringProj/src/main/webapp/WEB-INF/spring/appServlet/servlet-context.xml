@@ -3,6 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
@@ -128,4 +129,41 @@
 	<beans:bean id="first" class="com.kosmo.springapp.basic.handlermapping.SimpleUrlFirstController"/>
 	<beans:bean id="second" class="com.kosmo.springapp.basic.handlermapping.SimpleUrlSecondController"/>		
 	-->
+	<!-- 
+		@Autowired	
+		@Resource
+	 -->
+	
+	<!-- 생성자 인젝션 및 세터 인젝션시 주입할 값이 객체이면 ref, 주입할 값이 기본자료형이나 string형이면 value -->
+	<!-- [생성자를 통한 주입] -->
+	<!-- 주입 대상이 도리 Person클래스를 빈으로 등록 -->
+	<!--1] type속성과 value혹은 ref속성 사용 -->
+	<!-- Person personType = new Person("한소인","가산동",20);와 같다. -->
+	<beans:bean id="personType" class="com.kosmo.springapp.basic.injection.Person">
+		<beans:qualifier value="person1"/>
+		<beans:constructor-arg type="java.lang.String" value="한소인"/>
+		<beans:constructor-arg type="java.lang.String" value="가산동"/>
+		<beans:constructor-arg type="int" value="20"/>
+	</beans:bean>
+	
+	<!--2] index속성과 value혹은 ref속성 사용 -->
+	<!-- Person personType = new Person("가길동","청담동",20);와 같다. -->
+	<beans:bean id="personIndex" class="com.kosmo.springapp.basic.injection.Person">
+		<beans:qualifier value="person2"/>
+		<beans:constructor-arg index="0" value="가길동"/>
+		<beans:constructor-arg index="1" value="청담동"/>
+		<beans:constructor-arg index="2" value="30"/>
+	</beans:bean>
+	
+	<!-- [세터를 통한 주입] -->
+	<!-- property태그를 이용해서 주입하거나 p접두어(p:)사용해서 주입 -->
+	
+	<beans:bean p:addr="천호동" p:age="10" id="personProperty" class="com.kosmo.springapp.basic.injection.Person">
+		<beans:qualifier value="person3"/>
+		<!-- name속성 : 해당 빈의 멤버변수명(속성명) ref 혹은 value속성: 주입할 대상이 객체이면 ref, 기본 자료형이면 value -->
+		<beans:property name="name" value="천길동"/>
+	</beans:bean>
+	
+	<beans:bean id="personDefault" class="com.kosmo.springapp.basic.injection.Person">
+	</beans:bean>
 </beans:beans>
