@@ -10,3 +10,5 @@
 
 
     Server시작 -> application 시작 -> web.xml
+    HomeController.java -> Home.jsp -> IndexController.java -> Controller.jsp
+    
