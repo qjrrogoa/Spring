@@ -94,7 +94,62 @@
     
     2] Command 클래스를 만든다(DTO)
     
+    [] autowired
+    2개 이상의 값일 때 
+    id값으로 구분
+    @Autowired(required = false)
     
+    2개 이상의 값일 때
+    id값이 같거나 없을 땐 Qualifier
+	@Qualifier("qualifier값")
+    
+    제일 먼저 servlet-context.xml
+    
+    <beans:bean id="fCommand" p:name="가길동" p:years="20" class="com.kosmo.springapp.basic.annotation.Command">
+        <beans:qualifier value="fCommand"/>
+	</beans:bean>
+	
+	<beans:bean id="sCommand" class="com.kosmo.springapp.basic.annotation.Command">
+		<beans:property name="name" value="나길동"/>
+		<beans:property name="years" value="30"/>
+	</beans:bean>
+    
+    
+    1] 필드에 붙일 경우
+    @Autowired(required = false)
+	@Qualifier("fCommand")
+	private Command fCommand;
+	@Autowired(required = false)
+	@Qualifier("sCommand")
+	private Command sCommand;
+    
+    2]세터에 붙일 경우
+    
+    private Command fCommand;
+	private Command sCommand;
+	
+
+	@Autowired
+	@Qualifier("fCommand")
+	public void setfCommand(Command fCommand) {
+		this.fCommand = fCommand;
+	}
+
+	@Autowired
+	@Qualifier("sCommand")
+	public void setsCommand(Command sCommand) {
+		this.sCommand = sCommand;
+	}
+    
+    3]생성자에 부착(단, @Qualifier 부착 불가, 무조건 id값 부여해야한다.)
+    @Autowired
+	public AutoWiredController(Command fCommand, Command sCommand) {
+		this.fCommand = fCommand;
+		this.sCommand = sCommand;
+	}
+	
+
+
     매개변수
     매개변수에
     
