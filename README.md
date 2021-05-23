@@ -79,22 +79,18 @@
 
 #Annotation
 
-	[]
+	2]RequestParam 
 	파라미터명이랑 변수명이랑 다를 때
 	매개변수에서 조절 해줘야 한다
 	@RequestParam("파라미터명" or value="파라미터명") 자료형 변수명 or @RequestParam(required=false,defalutValue="내가 정한 디폴트 값") 자료형 변수명
 
-	[]
-	1]
+	3]ModelAttribute
+	check받을때는 cmd로 받아야한다, map으로 받을 시 맨 처음꺼 밖에 받질 못함
+	[1] cmd
 	파라미터를 맵으로 모두 받기
-	매개변수에
-	맵에 담으면 되지만 체크박스는 첫번째 꺼 밖에 담지 못해 배열로 담는다 그리고 맵에 담을 때 Array.toString해줌 끝
-	(@RequestParam Map map, ModelMap model, @RequestParam String[] 체크박스 매개변수)
-	map.put("체크박스",Array.toString(체크박스));
+	Command 클래스를 만든다(DTO)
 
-	2] Command 클래스를 만든다(DTO)
-
-	[] autowired
+	3] autowired
 	2개 이상의 값일 때 
 	id값으로 구분
 	@Autowired(required = false)
