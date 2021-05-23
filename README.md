@@ -79,18 +79,21 @@
 
 #Annotation
 
-	2]RequestParam 
+2]RequestParam 
+---
 	파라미터명이랑 변수명이랑 다를 때
 	매개변수에서 조절 해줘야 한다
 	@RequestParam("파라미터명" or value="파라미터명") 자료형 변수명 or @RequestParam(required=false,defalutValue="내가 정한 디폴트 값") 자료형 변수명
 
-	3]ModelAttribute
+3]ModelAttribute
+---
 	check받을때는 cmd로 받아야한다, map으로 받을 시 맨 처음꺼 밖에 받질 못함
 	[1] cmd
 	파라미터를 맵으로 모두 받기
 	Command 클래스를 만든다(DTO)
 
-	4] autowired(타입 -> id -> Qualifer)
+4] autowired(타입 -> id -> Qualifer)
+---
 	2개 이상의 값일 때 
 	id값으로 구분
 	@Autowired(required = false)
@@ -161,8 +164,8 @@
 	}
 
 
-	5]Resource (id -> 타입-> Qualifer)
-	
+5]Resource (id -> 타입-> Qualifer)
+---
 	<beans:bean id="fCommand" p:name="가길동" p:years="20" class="com.kosmo.springapp.basic.annotation.Command">
 		<beans:qualifier value="fCommand"/>
 	</beans:bean>
