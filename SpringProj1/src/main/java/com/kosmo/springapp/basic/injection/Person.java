@@ -20,7 +20,6 @@ public class Person {
 		this.name = name;
 		this.addr = addr;
 		this.age = age;
-		System.out.println("Person의 인자 생성자");
 	}
 
 	public String getName() {
