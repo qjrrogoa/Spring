@@ -210,5 +210,61 @@
 		return "annotation06/Annotation";
 	}
 	
-	[1] 서블릿 API 사용
+	1] 서블릿 API 사용 (선호 X)
+	[1] 로그인 처리
+	@RequestMapping("")
+	public String login(HttpSession session, @RequestParam Map map, Model model){
+		if("KIM".eqals(map.get("user")) && "1234".equals(map.get("pass"))){
+			session.setAttribute("user",map.get("user"))
+		}
+		else
+			model.addAttribute("errorMessage","아이디와 비번 불일치");
+			
+		return "";
+	}	
+	
+	[2] 로그아웃 처리
+	@RequestMapping("")
+	public String logout(HttpSession session){
+		session.invalidate();
+		return "";
+	}
+	
+	[3] 로그인 판단 여부
+	@RequestMapping("")
+	public String isLogin(HttpSession session,Model model){
+		model.addAttribute("","");
+		return "";
+	}
+	
+	2] SessionAttribute 어노테이션 사용, Command 사용 X
+	[1] 로그인 처리
+	@SessionAttributes({"user","pass"})
+	@RequestMapping("")
+	public String login(@RequestParam Map map, Model model){
+		if("KIM".eqals(map.get("user")) && "1234".equals(map.get("pass"))){
+			model.addAllattributes(map);
+		}
+		else
+			model.addAttribute("errorMessage","아이디와 비번 불일치");
+			
+		return "";
+	}	
+	
+	[2] 로그아웃 처리
+	@SessionAttributes({"user","pass"})
+	@RequestMapping("")
+	public String logout(SessionStatus status){
+		status.setComplete();
+		return "";
+	}
+	
+	[3] 로그인 판단 여부
+	@SessionAttributes({"user","pass"})
+	@RequestMapping("")
+	public String isLogin(HttpSession session,Model model){
+		model.addAttribute("","");
+		return "";
+	}
+	
 	
