@@ -238,8 +238,8 @@
 	}
 	
 	2] SessionAttribute 어노테이션 사용, Command 사용 X
+	@SessionAttributes({"user","pass"})(@Controller위에)
 	[1] 로그인 처리
-	@SessionAttributes({"user","pass"})
 	@RequestMapping("")
 	public String login(@RequestParam Map map, Model model){
 		if("KIM".eqals(map.get("user")) && "1234".equals(map.get("pass"))){
@@ -252,7 +252,6 @@
 	}	
 	
 	[2] 로그아웃 처리
-	@SessionAttributes({"user","pass"})
 	@RequestMapping("")
 	public String logout(SessionStatus status){
 		status.setComplete();
@@ -260,7 +259,6 @@
 	}
 	
 	[3] 로그인 판단 여부
-	@SessionAttributes({"user","pass"})
 	@RequestMapping("")
 	public String isLogin(@ModelAttribute("user") String id,Model model){
 		model.addAttribute("",id+"로그인");
@@ -269,4 +267,34 @@
 	
 	
 	3] SessionAttribute 어노테이션 사용, Command 사용 O
+	[1]
+	LoginCommand 클래스 생성 
+	@SessionAttributes(types=LoginCommand.class)(@Controller위에)
+	또, 빈 설정 파일에 <annotation-driven/>태그 추가해야됨
+
+	[1] 로그인 처리
+	//매개변수의 LoginCommand 객체가 무조건 자동으로 세션 영역에 저장됨
+	//로그인 처리시 회원이 아닐때라고 if문 설정 해야 한다.
 	
+	@RequestMapping("")
+	public String login(LoginCommand cmd, Model model, SessionStatus satus){
+		if(!("KIM".eqals(map.get("user")) && "1234".equals(map.get("pass")))){
+			model.addAllattributes("errorMessage","아이디 비번 불일치");
+			status.setComplete();
+		}
+		return "";
+	}	
+	
+	[2] 로그아웃 처리
+	@RequestMapping("")
+	public String logout(SessionStatus status){
+		status.setComplete();
+		return "";
+	}
+	
+	[3] 로그인 판단 여부
+	@RequestMapping("")
+	public String isLogin(@ModelAttribute("loginCommand") String id,Model model){
+		model.addAttribute("",id+"로그인");
+		return "";
+	}
