@@ -262,9 +262,11 @@
 	[3] 로그인 판단 여부
 	@SessionAttributes({"user","pass"})
 	@RequestMapping("")
-	public String isLogin(HttpSession session,Model model){
-		model.addAttribute("","");
+	public String isLogin(@ModelAttribute("user") String id,Model model){
+		model.addAttribute("",id+"로그인");
 		return "";
 	}
 	
+	
+	3] SessionAttribute 어노테이션 사용, Command 사용 O
 	
