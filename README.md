@@ -90,7 +90,7 @@
 	파라미터를 맵으로 모두 받기
 	Command 클래스를 만든다(DTO)
 
-	3] autowired
+	4] autowired
 	2개 이상의 값일 때 
 	id값으로 구분
 	@Autowired(required = false)
@@ -143,22 +143,38 @@
 	this.fCommand = fCommand;
 	this.sCommand = sCommand;
 	}
+	
+	@RequestMapping("")
+	public String 매서드명(Model model){
+		model.addAttribute(,);
+		return " " ;
+	}
 
 
-	[]Resource (id로 구분)
+	5]Resource (id로 구분)
 
-	1]
-	//name에서 id값 반드시 일치
+	[1] 변수 이름 지정X
 	@Resource
 	private Command fCommand;
 	@Resource
 	private Command sCommand;
+	
+	@RequestMapping("")
+	public String 매서드명(Model model){
+		model.addAttribute("message",String.format("%s,%s",fCommand,sCommand));
+		return " " ;
+	}
 
-	2]
+	[2] 변수 이름 지정 O
 	@Resource(name="fCommand")
 	private Command fCmd;
-	@Resource(name="sCommans")
+	@Resource(name="sCommand")
 	private Command sCmd;
-
+	
+	@RequestMapping("")
+	public String 매서드명(Model model){
+		model.addAttribute("message",String.format("%s,%s",fCmd,sCmd));
+		return " " ;
+	}
     
     
