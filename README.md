@@ -90,7 +90,7 @@
 	파라미터를 맵으로 모두 받기
 	Command 클래스를 만든다(DTO)
 
-	4] autowired
+	4] autowired(타입 -> id -> Qualifer)
 	2개 이상의 값일 때 
 	id값으로 구분
 	@Autowired(required = false)
@@ -151,7 +151,18 @@
 	}
 
 
-	5]Resource (id로 구분)
+	5]Resource (id -> 타입-> Qualifer)
+	
+	<beans:bean id="fCommand" p:name="가길동" p:years="20" class="com.kosmo.springapp.basic.annotation.Command">
+		<beans:qualifier value="fCommand"/>
+	</beans:bean>
+
+	<beans:bean id="sCommand" class="com.kosmo.springapp.basic.annotation.Command">
+		<beans:qualifier value="fCommand"/>
+		<beans:property name="name" value="나길동"/>
+		<beans:property name="years" value="30"/>
+	</beans:bean>
+
 
 	[1] 변수 이름 지정X
 	@Resource
