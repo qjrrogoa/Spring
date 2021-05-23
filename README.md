@@ -112,18 +112,18 @@
 	</beans:bean>
 
 
-	1] 필드에 붙일 경우
+	[1] 필드에 붙일 경우
 	@Autowired(required = false)
 	@Qualifier("fCommand")
 	private Command fCommand;
+	
 	@Autowired(required = false)
 	@Qualifier("sCommand")
 	private Command sCommand;
 
-	2]세터에 붙일 경우
+	[2]세터에 붙일 경우
 	private Command fCommand;
 	private Command sCommand;
-
 
 	@Autowired
 	@Qualifier("fCommand")
@@ -137,8 +137,11 @@
 	this.sCommand = sCommand;
 	}
 
-	3]생성자에 부착(단, @Qualifier 부착 불가, 무조건 id값 부여해야한다.)
+	[3]생성자에 부착(단, @Qualifier 부착 불가, 무조건 id값 부여해야한다.)
 	@Autowired
+	private Command fCommand;
+	private Command sCommand;
+	
 	public AutoWiredController(Command fCommand, Command sCommand) {
 	this.fCommand = fCommand;
 	this.sCommand = sCommand;
@@ -147,6 +150,13 @@
 	@RequestMapping("")
 	public String 매서드명(Model model){
 		model.addAttribute(,);
+		return " " ;
+	}
+
+	[1],[2],[3] 공통
+	@RequestMapping("")
+	public String 매서드명(Model model){
+		model.addAttribute("message",String.format("%s,%s",fCommand,sCommand));
 		return " " ;
 	}
 
