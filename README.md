@@ -294,7 +294,7 @@
 	
 	[3] 로그인 판단 여부
 	@RequestMapping("")
-	public String isLogin(@ModelAttribute("loginCommand") String id,Model model){
-		model.addAttribute("",id+"로그인");
+	public String isLogin(@ModelAttribute("loginCommand") LoginCommand cmd,Model model){
+		model.addAttribute("",cmd.getUser()+"로그인");
 		return "";
 	}
