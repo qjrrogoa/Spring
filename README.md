@@ -326,13 +326,30 @@
 
 	1] Command생성 
 	
-	2] src/main/resources/ 파일명.properties 파일 생성
+	2-1] src/main/resources/ 파일명.properties 파일 생성
 	key = value 값으로 값 지정
+	
+	2-2] servlet-context 빈 파일 생성
+	<beans:bean id="" p:속성명1 = "${키1}" class="">
+		<beans:property name="속성명2" value="{키2}"/>
+	</beans:bean>
 	
 	3] Controller
 	
-	@Value("${속성명1}")
+	@Value("${키1}")
 	private 자료형 속성명1;
-	@Value("${속성명2}")
+	@Value("${키2}")
 	private 자료형 속성명2;
+	
+	@Resource(name="id값")
+	private 클래스명 command명
+	
+	@RequestMapping()
+	public 자료형 매서드명(Model model){
+		//데이터 저장
+		model.addAttribute
+		
+		return "";
+	}
+	
 	
