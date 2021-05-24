@@ -331,4 +331,8 @@
 	
 	3] Controller
 	
+	@Value("${속성명1}")
+	private 자료형 속성명1;
+	@Value("${속성명2}")
+	private 자료형 속성명2;
 	
