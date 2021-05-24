@@ -298,3 +298,37 @@
 		model.addAttribute("",cmd.getUser()+"로그인");
 		return "";
 	}
+
+#database
+
+1. JNDI 연결
+---
+	1] root-context.xml
+	<bean id="" class="org.springframework.jndi.JndiObjectFactoruBean">
+		<property name="" value="계정 이름"/>
+		<property name="resourceRef" value="ture"/> // 이 문장 안해주면 value="java:/comp/env/계정이름" 해줘야함
+	</bean>
+		
+	2] Controller
+	@Resource(name="아이디값")
+	private Datasource 변수;
+	
+	@RequestMapping("")
+	public String 메서드명(@RequestParam String method,Model model){
+		Connection conn = jndi.getConnection();
+		model.addAttribute("","");
+		if(conn != null)
+			conn.close();
+		return "";
+	}
+	
+#resource
+
+	1] Command생성 
+	
+	2] src/main/resources/ 파일명.properties 파일 생성
+	key = value 값으로 값 지정
+	
+	3] Controller
+	
+	
