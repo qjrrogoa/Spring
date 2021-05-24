@@ -348,8 +348,10 @@
 	public 자료형 매서드명(Model model){
 		//데이터 저장
 		model.addAttribute
-		
+		//뷰 정보 반환
 		return "";
 	}
+	
+	
 	
 	
