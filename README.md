@@ -351,6 +351,40 @@
 		//뷰 정보 반환
 		return "";
 	}
+
+#validate
+
+	1] Command생성
+	//checkbox 하기 위해서 체크박스는 배열로 선언
+	
+	2] Controller
+	// 메서드 2개 필요
+	// 첫번째 메서드 boolean 반환하는 메서드
+	// 두번째 메서드 첫번째 메서드가 false면 페이지 유지, true면 페이지 넘기기
+	
+	@RequestMapping("")
+	public boolean validate(클래스명 cmd, Model model){
+		if(cmd.getName().trim().equlas(""){
+			model.attribute("nameError","이름을 입력하세요")
+			return false;
+		}
+		// 조건 여러개 쭈욱~
+		return ture;
+	}
+	
+	@RequestMapping("")
+	public String exec(클래스명 cmd, Model model){
+		
+		if(!validate(cmd,model)){
+			model.addAttribute("inters",Arrays.toString(cmd.getInters()));
+			return "";
+		}
+		
+		cmd.setSelf(cmd.getSelf().replace("\r\n","<br/>"));
+		model.addAttribute("cmd",cmd);
+		return "";
+	}
+	
 	
 	
 	
