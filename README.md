@@ -396,6 +396,10 @@ lombook 라이브러리 설치
 
 cmd,터미널 이용해서 lombook설치
 
+	//터미널에서
+	cd /Users/bagdaemin/.m2/repository/org/projectlombok/lombok/1.18.20/
+	java -jar lombok-1.18.20.jar
+
 2] src/main/sesources에서 onememo.mybatis 패키지 생성
 
 3] configulation.xml생성
