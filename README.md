@@ -387,5 +387,47 @@
 	
 	
 	
+#mybatis
+---
+
+1] pop.xml
+
+lombook 라이브러리 설치
+
+cmd,터미널 이용해서 lombook설치
+
+2] src/main/sesources에서 onememo.mybatis 패키지 생성
+
+3] configulation.xml생성
+
+	<?xml version="1.0" encoding="UTF-8" ?>
+	<!DOCTYPE configuration
+	  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+	<configuration>
+	  <environments default="development">
+	    <environment id="development">
+	      <transactionManager type="JDBC"/>
+	      <dataSource type="POOLED">
+		<property name="driver" value="${driver}"/>
+		<property name="url" value="${url}"/>
+		<property name="username" value="${username}"/>
+		<property name="password" value="${password}"/>
+	      </dataSource>
+	    </environment>
+	  </environments>
+	  <mappers>
+	    <mapper resource="org/mybatis/example/BlogMapper.xml"/>
+	  </mappers>
+	</configuration>
+붙여넣기
+
+4]connect.properties 생성
+
+	driver = oracle.jdbc.OracleDriver
+	url = jdbc:oracle:thin:@localhost:1521:xe
+	username = maven
+	password = maven
+	JNDI_NAME = java:comp/env/maven
 	
 	
