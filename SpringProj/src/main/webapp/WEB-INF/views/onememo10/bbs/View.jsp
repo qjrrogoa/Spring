@@ -96,13 +96,13 @@
 					<!-- 한줄 코멘트 입력 폼-->
 					<!-- 마이바티스의 리절트맵 테스트용:<%--${record.comments.size()} --%> -->
 					<h2>한줄 댓글 입력 폼</h2>
-					<form class="form-inline" id="frm" method="post">
+					<form class="form-inline" id="frm">
 						<!-- 씨큐리티 적용:csrf취약점 방어용 -->
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" /> 
 							<input type="hidden" name="no"	value="${record.no}" />
 						<!-- 수정 및 삭제용 파라미터 -->
-						<input type="hidden" name="cno" /> 
+						<input type="hidden" name="lno" /> 
 						<input placeholder="댓글을 입력하세요"
 							id="title" class="form-control" type="text" size="50"
 							name="linecomment" /> 
@@ -112,7 +112,39 @@
 					<div class="row">
 						<!-- 한줄 코멘트 목록-->
 						<!-- ajax로 아래에 코멘트 목록 뿌리기 -->
-						<div id="comments" class="col-md-offset-3 col-md-6"></div>
+						<div id="comments" class="col-md-offset-3 col-md-6">
+							<!-- 아래 태그는 마이바티스 resultMap의 collection태그사용시 -->
+							<h2>한줄 댓글 목록</h2>
+							<table class='table table-bordered'>
+								<tr >
+									<th class='text-center col-md-2'>작성자</th>
+									<th class='text-center'>코멘트</th>
+									<th class='text-center col-md-2'>작성일</th>
+									<th class='text-center col-md-2'>삭제</th>
+									
+								</tr>
+								<tbody class="comment-title">								
+									<c:if test="${not empty record.comments}">
+										<c:forEach var="comment" items="${record.comments}">
+											<tr>
+												<td>${comment.name }</td>
+												<td>
+												<c:if test="${sessionScope.id==comment.id }">
+													<a href="#">${comment.lineComment }</a>
+												</c:if>
+												<c:if test="${sessionScope.id!=comment.id }">
+													${comment.lineComment }
+												</c:if>
+												</td>
+												<td>${comment.lpostDate }</td>
+												<td>삭제</td>
+											</tr>
+										</c:forEach>
+									</c:if>
+								</tbody>
+							</table>
+						
+						</div>
 					</div>
 				</div>
 			</div>
@@ -120,13 +152,13 @@
 	</div>
 	<!-- 실제 내용 끝 -->
 	<script>
-		showComments();
+		//showComments();//마이바티스의 ResultMap 태그의 collection태그 적용시는 주석
 	
 		//현재 글번호에 대한 모든 댓글을 요청하는 함수
 		function showComments(){
 			
-			//contentType키를 생략시 디폴트: x-www-form-urlencoded
-			//post방식이라 요청바디에 데이터가 key=value형태로 변환되서 전송
+			//contentType키를 생략시 디폴트:x-www-form-urlencoded
+			//post방식이라 요청바디에 데이타가 key=value형태로 변환되서 전송 
 			//예: no=2
 			$.ajax({
 				"url":"<c:url value='/OneMemo/Comment/List.do'/>",
@@ -144,7 +176,64 @@
 		//실제 댓글 목록을 뿌려주는 함수]
 		function showComments_(data){
 			console.log("서버에서 전송받은 데이타(댓글 목록):",data);
+			var comments ="<h2>한줄 댓글 목록</h2>";
+			comments +="<table class='table table-bordered'>";
+			comments +="<tr><th class='text-center col-md-2'>작성자</th><th class='text-center'>코멘트</th><th class='text-center col-md-2'>작성일</th><th class='text-center col-md-2'>삭제</th></tr>";
+			if(data.length==0){
+				comments +="<tr><td colspan='4'>등록한 댓글이 없어요</td></tr>";
+			}
+			$.each(data,function(index,element){
+				if ("${username}" == element['ID'])//씨큐리티 사용시
+					comments += "<td class='text-left'><span class='commentEdit' title='"+element['LNO']+"' style='cursor:pointer'>"
+							+ element['LINECOMMENT']
+							+ '</span></td>';
+				else
+					comments += "<td class='text-left'>"
+							+ element['LINECOMMENT'] + "</td>";
+
+				comments += "<td>" + element['LPOSTDATE'] + "</td>";
+				comments += "<td>";
+				//if ("${sessionScope.id}" == element['ID'])
+				if ("${username}" == element['ID'])
+					comments += "<span class='commentDelete' title='"+element['LNO']+"' style='cursor:pointer'>삭제</span></td>";
+				else
+					comments += "<span style='color:gray;font-size:.7em'>삭제불가</span>";	
+			});
+			comments+="</table>";
+			$('#comments').html(comments);
 		}////////////
+		
+		
+		//코멘트 입력 및 수정처리]
+		var action;
+		$("#submit").click(function(){
+			console.log("클릭 이벤트 발생:"+$(this).val());
+			console.log($("#frm").serialize());
+			if($(this).val() == "등록")
+				action = "<c:url value="/OneMemo/Comment/Write.do"/>";	
+			else
+				action = "<c:url value="/OneMemo/Comment/Edit.do"/>";	
+			//ajax로 요청]	
+			
+			$.ajax({
+				url:action,
+				data:$("#frm").serialize(),
+				dataType:"text",
+				type:"post",
+				success:function(name){//댓글 입력 성공 
+					console.log("서버로부터 받은 데이타:"+name);
+					var date = new Date();
+					var lpostDate=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
+					var newComment="<tr><td>"+name+"</td><td><a href='#'>"+$("#title").val()+"</a></td><td>"+lpostDate+"</td><td>삭제</td></tr>";
+					$(".comment-title").prepend(newComment);
+					//입력댓글 클리어 및 포커스 주기
+					$('#title').val("");
+					$("#title").focus();
+					
+				}
+				
+			});	
+		});
 	
 	</script>
 	

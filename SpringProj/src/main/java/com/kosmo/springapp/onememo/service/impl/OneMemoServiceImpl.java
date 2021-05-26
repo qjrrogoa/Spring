@@ -63,4 +63,9 @@ public class OneMemoServiceImpl implements OneMemoService {
 		return dao.update(map);
 	}
 
+	@Override
+	public String findNameById(String id) {		
+		return dao.findNameById(id);
+	}
+
 }

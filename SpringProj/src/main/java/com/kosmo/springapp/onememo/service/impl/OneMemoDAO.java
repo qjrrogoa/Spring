@@ -19,7 +19,7 @@ import com.kosmo.springapp.onememo.service.OneMemoDTO;
 import com.kosmo.springapp.onememo.service.OneMemoService;
 
 @Repository
-public class OneMemoDAO implements OneMemoService {
+public class OneMemoDAO  {
 	
 	
 	/*
@@ -71,7 +71,7 @@ public class OneMemoDAO implements OneMemoService {
 	@Resource(name="template")
 	private SqlSessionTemplate sqlMapper;
 	
-	@Override
+
 	public boolean isLogin(Map map) {
 		/*
 		// 스프링 지원 마이바티스 API 미 사용시
@@ -86,7 +86,7 @@ public class OneMemoDAO implements OneMemoService {
 		return (Integer)sqlMapper.selectOne("memoIsLogin", map) ==1 ? true : false;
 	}
 
-	@Override
+	
 	public List<OneMemoDTO> selectList(Map map) {
 		/*
 		// 스프링 지원 마이바티스 API 미 사용시
@@ -101,18 +101,18 @@ public class OneMemoDAO implements OneMemoService {
 		return sqlMapper.selectList("memoSelectList");
 	}
 
-	@Override
+	
 	public int getTotalRecord(Map map) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
+	
 	public OneMemoDTO selectOne(Map map) {		
 		return sqlMapper.selectOne("memoSelectOne", map);
 	}
 
-	@Override
+	
 	public int insert(Map map) {
 		/*
 		// 스프링 지원 마이바티스 API 미 사용시
@@ -129,16 +129,20 @@ public class OneMemoDAO implements OneMemoService {
 		return sqlMapper.insert("memoInsert", map);
 	}
 
-	@Override
+	
 	public int delete(Map map) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
+	
 	public int update(Map map) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	//아이디로 이름 찾는 메소드]
+	public String findNameById(String id) {
+		return sqlMapper.selectOne("memoFindNameById", id);
+	}////////////////////////
 	
 }

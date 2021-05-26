@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kosmo.springapp.onememo.service.LineCommentDTO;
 import com.kosmo.springapp.onememo.service.OneMemoDTO;
 import com.kosmo.springapp.onememo.service.OneMemoService;
 
@@ -80,6 +81,8 @@ public class OneMemoController {
 		//줄바꿈 처리
 		record.setContent(record.getContent().replace("\r\n","<br/>"));
 		model.addAttribute("record", record);
+		List<LineCommentDTO> comments=record.getComments();
+		
 		//뷰정보 반환]
 		return "onememo10/bbs/View";
 	}

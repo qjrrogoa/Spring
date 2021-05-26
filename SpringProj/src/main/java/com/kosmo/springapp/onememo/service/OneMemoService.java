@@ -16,4 +16,7 @@ public interface OneMemoService {
 	int insert(Map map);
 	int delete(Map map);
 	int update(Map map);
+	
+	//아이디로 이름 찾기
+	String findNameById(String id);
 }

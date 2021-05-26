@@ -24,9 +24,8 @@ public class LineCommentDAO implements LineCommentService {
 	}
 
 	@Override
-	public int insert(Map map) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insert(Map map) {		
+		return sqlMapper.insert("commentInsert",map);
 	}
 
 	@Override

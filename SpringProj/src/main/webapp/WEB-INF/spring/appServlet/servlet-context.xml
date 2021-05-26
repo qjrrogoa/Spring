@@ -234,4 +234,10 @@
 		</beans:property>
 	</beans:bean>
 	
+	<!--  Jackson의 com.fasterxml.jackson.databind.ObjectMapper등록
+	      DTO->JSON 혹은 JSON->DTO로 혹은 Map->JSON 혹은 JSON->Map으로
+	      하기위한 API사용하기 위함
+	-->
+	<beans:bean class="com.fasterxml.jackson.databind.ObjectMapper"/>
+	
 </beans:beans>

@@ -11,11 +11,23 @@
 	키값(대문자)은 컬럼명이고
 	밸류값는 컬럼에 저장된 값
 	 -->
+	<!-- 마이바티스의 resultMap의 collection 미 사용시 -->
 	<select id="commentSelectList" parameterType="Map" resultType="Map">
 		SELECT L.*,M.NAME 
 		FROM member m JOIN LINECOMMENTS L ON M.ID = L.ID 
 		WHERE NO=#{no}
 		ORDER BY lno DESC
 	</select>
+	<!-- 마이바티스의 resultMap의 collection사용시 -->
+	<select id="commentSelectList2" parameterType="Map" resultType="com.kosmo.springapp.onememo.service.LineCommentDTO">
+		SELECT L.*,M.NAME 
+		FROM member m JOIN LINECOMMENTS L ON M.ID = L.ID 
+		WHERE NO=#{no}
+		ORDER BY lno DESC
+	</select>
+	<insert id="commentInsert" parameterType="Map">
+		INSERT INTO linecomments
+		VALUES(SEQ_LINECOMMENTS.NEXTVAL,#{linecomment},SYSDATE,#{id},#{no})
+	</insert>
 	
 </mapper>
