@@ -14,4 +14,5 @@ public class OneMemoDTO {
 	private String commentCount;
 	
 	//마이바티스의 ResultMap 태그의 collection태그 테스트용
+	
 }

@@ -29,7 +29,8 @@ public class OneMemoServiceImpl implements OneMemoService {
 	private  OneMemoDAO dao;
 	
 	@Override
-	public boolean isLogin(Map map) {		
+	public boolean isLogin(Map map) {
+		
 		return dao.isLogin(map);
 	}
 

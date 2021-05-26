@@ -61,4 +61,27 @@ public class OneMemoController {
 		//뷰정보 반환:목록으로 이동
 		return "forward:/OneMemo/BBS/List.do";
 	}/////////////
+	//컨트롤러 메소즈 작성 규칙]
+	/*
+	 * 접근지정자 : public
+	 * 반환타입 : 주로 String(뷰정보를 문자열로 반환)
+	 * 메소드명: 임의
+	 * 인자 : 원하는 타입을 사용할 수 있다(단, 사용할 수 있는 타입이 정해져 있다)
+	 *       어노테이션도 가능
+	 * 예외를 throws할 수 있다(선택)
+	 * 
+	 */
+	//상세보기]
+	@RequestMapping("View.do")
+	public String view(@ModelAttribute("id") String id,@RequestParam Map map,Model model) {
+		//서비스 호출]
+		OneMemoDTO record=memoService.selectOne(map);
+		//데이타 저장]
+		//줄바꿈 처리
+		record.setContent(record.getContent().replace("\r\n","<br/>"));
+		model.addAttribute("record", record);
+		//뷰정보 반환]
+		return "onememo10/bbs/View";
+	}
+	
 }

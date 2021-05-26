@@ -23,6 +23,7 @@ public class AuthController {
 	//로그인 폼으로 이동]
 	@RequestMapping("Login.do")
 	public String login() {
+		
 		return "onememo10/member/Login";
 	}
 	//로그인 처리]

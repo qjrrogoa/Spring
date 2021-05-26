@@ -6,10 +6,13 @@ import java.io.Reader;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kosmo.springapp.onememo.service.OneMemoDTO;
@@ -45,7 +48,7 @@ public class OneMemoDAO implements OneMemoService {
 	/* 스프링이 myBatis관련해서 지원하는 API 미 사용시
 	 * -로그인/목록/입력에 적용해 보자	
 	 */ 
-
+	/*
 	private static SqlSessionFactory sqlMapper;
 	static {
 	
@@ -56,10 +59,21 @@ public class OneMemoDAO implements OneMemoService {
 		}
 		catch(IOException e) {e.printStackTrace();}
 		
-	}
+	}*/
+	
+	//SqlSessionFactory를 직접 생성하지 않고 주입(DI)하기
+	//@Resource(name="sqlSessionFactory")
+	//private SqlSessionFactory sqlMapper;//static 필드 지원 안함
+	/*[스프링에서 지원하는  마이바티스 관련 API(mybatis-spring-2.버전.jar) SqlSessionTemplate 사용]
+	-위 프로그래밍 순서의 (가)  및 (나)에서는 commit()호출
+		그리고 (다)의 close()호출 불필요 
+	 */
+	@Resource(name="template")
+	private SqlSessionTemplate sqlMapper;
 	
 	@Override
 	public boolean isLogin(Map map) {
+		/*
 		// 스프링 지원 마이바티스 API 미 사용시
 		//1]SqlSession얻기
 		SqlSession session= sqlMapper.openSession();
@@ -67,11 +81,14 @@ public class OneMemoDAO implements OneMemoService {
 		int count=session.selectOne("memoIsLogin", map);
 		//3]close()호출
 		session.close();
-		return count ==1 ? true : false;
+		return count ==1 ? true : false;*/
+		/* 스프링지원 마이바티스 API 사용시:SqlSessionTemplate*/
+		return (Integer)sqlMapper.selectOne("memoIsLogin", map) ==1 ? true : false;
 	}
 
 	@Override
 	public List<OneMemoDTO> selectList(Map map) {
+		/*
 		// 스프링 지원 마이바티스 API 미 사용시
 		//1]SqlSession얻기
 		SqlSession session= sqlMapper.openSession();
@@ -79,7 +96,9 @@ public class OneMemoDAO implements OneMemoService {
 		List<OneMemoDTO>  list=session.selectList("memoSelectList");
 		//3]close()호출
 		session.close();
-		return list;
+		return list;*/
+		/* 스프링지원 마이바티스 API 사용시:SqlSessionTemplate*/
+		return sqlMapper.selectList("memoSelectList");
 	}
 
 	@Override
@@ -89,13 +108,13 @@ public class OneMemoDAO implements OneMemoService {
 	}
 
 	@Override
-	public OneMemoDTO selectOne(Map map) {
-		// TODO Auto-generated method stub
-		return null;
+	public OneMemoDTO selectOne(Map map) {		
+		return sqlMapper.selectOne("memoSelectOne", map);
 	}
 
 	@Override
 	public int insert(Map map) {
+		/*
 		// 스프링 지원 마이바티스 API 미 사용시
 		//1]SqlSession얻기
 		SqlSession session= sqlMapper.openSession();
@@ -105,7 +124,9 @@ public class OneMemoDAO implements OneMemoService {
 		session.commit();
 		//4]close()호출
 		session.close();
-		return affected;
+		return affected;*/
+		/* 스프링지원 마이바티스 API 사용시:SqlSessionTemplate*/
+		return sqlMapper.insert("memoInsert", map);
 	}
 
 	@Override
