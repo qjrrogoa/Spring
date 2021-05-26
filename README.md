@@ -435,3 +435,15 @@ cmd,터미널 이용해서 lombook설치
 	JNDI_NAME = java:comp/env/maven
 	
 	
+	
+	
+root컨텍스트 주석 푼다
+sqlSessionFactory 복사 
+
+onememodao  주석 묶는다
+@Resource(name="복붙")
+private 복붙 sqlMapper
+
+configuration
+root컨텍스트
+root컨텍스트 주석 푼
