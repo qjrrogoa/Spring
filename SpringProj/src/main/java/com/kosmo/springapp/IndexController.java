@@ -3,6 +3,8 @@ package com.kosmo.springapp;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /*
 [일반 자바클래스 형태 즉 POJO(Plain Old Java Object)]
 
@@ -12,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 	
+	
 	//컨트롤러 메소드]
 	@RequestMapping("/handlermapping.do")
 	public String handlerMapping() {
+		
 		//뷰정보 반환]
 		return "handlermapping01/HandlerMapping";
 	}///////////////////handlerMapping()

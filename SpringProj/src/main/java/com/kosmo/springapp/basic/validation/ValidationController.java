@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import javax.annotation.Resource;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -87,6 +88,8 @@ public class ValidationController {
 	
 	@RequestMapping("/Validation/ValidationCheck.do")
 	public String exec(FormCommand cmd,BindingResult errors, Model model) {//매개변수 순서 : ※FormCommand다음에 BindingResult순으로	
+		
+		
 		/*
 		 * 내가 만든 Validator클래스의 validate()호출 
 		 * validate()메소드 첫번째 매개변수에 유효성 검증 해달라고 커맨드 객체 넣어주고 

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
+<!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
+<mapper namespace="onememo.mybatis.mapper.onememo">
+	
+	<!-- 
+	[쿼리문 작성법]
+	A. 값에 해당하는 부분은 #{변수}
+	B. 객체에 해당하는 부분은 ${변수} 객체은 테이블명 혹은 컬럼명등을 의미
+	C. #{변수} 작성시 parameterType이 Map인 경우는 키값을
+	                            자바빈(DTO계열)인 경우는 자바빈의 속성명(멤버변수명) 이어야 한다
+	     단,parameterType이 int나 String인 경우는 임의값을 줘도 무방
+	D. 쿼리문안에  >,>= ,<,<=등의 비교 연산자를 사용하는 경우 에러
+	  	1. <![CDATA[     ]]> CDATA섹션을 사용하거나
+	  		예] 
+	  		SELECT * FROM emp
+	  		<![CDATA[ 
+	  		WHERE sal >= 3000
+	  		]]>
+	  		CDATA섹션의 문자열은 단순 텍스트로 처리한다
+	  	2. 특수문자를 사용한다 즉 >은 &gt; < 은 &lt;
+	  	   예]
+	  	  SELECT * FROM emp
+	  	  WHERE sal &gt;= 3000
+	 -->
+	<select id="memoIsLogin" parameterType="Map" resultType="int">
+		SELECT COUNT(*) FROM member WHERE id=#{id} AND pwd=#{pwd}		
+	</select>
+	<select id="memoSelectList" resultType="oneMemoDTO">
+		SELECT o.*,m.name,(SELECT COUNT(*) FROM linecomments WHERE no=o.no) as commentcount FROM
+		member m JOIN onememo o ON m.id= o.id
+		ORDER BY no DESC	
+	</select>
+	<insert id="memoInsert" parameterType="Map">
+		INSERT INTO ONEMEMO 
+		VALUES(SEQ_ONEMEMO.NEXTVAL,#{title},#{content},DEFAULT,#{id})
+	</insert>
+ 
+</mapper>

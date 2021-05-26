@@ -5,7 +5,12 @@
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script>
+	function logout(){
+		location.replace('<c:url value="/OneMemo/Auth/Logout.do"/>');
+	}
 
+</script>
 <style>
 body {
 	padding-top: 50px;
@@ -36,9 +41,14 @@ body {
 				<button class="btn btn-info">확인</button>
 			</form>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="<c:url value="/DataRoom/Index.kosmo"/>">HOME</a></li>
-				<li><a href="#">로그인</a></li>
-				<li><a href="<c:url value="/DataRoom/List.kosmo"/>">자료실</a></li>
+				<li><a href="<c:url value="/"/>">HOME</a></li>
+				<c:if test="${not empty sessionScope.id }" var="isLogin">
+					<li><a href="javascript:logout()">로그아웃</a></li>
+				</c:if>
+				<c:if test="${not isLogin }">					
+					<li><a href="<c:url value="/OneMemo/Auth/Login.do"/>">로그인</a></li>
+				</c:if>
+				<li><a href="<c:url value="/OneMemo/BBS/List.do"/>">한줄 댓글 게시판</a></li>
 				<li><a href="#">공지사항</a></li>
 				
 			</ul>
