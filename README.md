@@ -483,7 +483,7 @@ servlet.jsp 2.3.3
 	<configuration>
 	<!-- JDBC를 써서 데이터베이스에 연결 : mybatis spring api 사용시에는 필요 없음 -->
 	<typeAliases>
-		<typeAlias alias="oneMemoDTO" type="com.kosmo.springapp.onememo.service.OneMemoDTO" />
+		<typeAlias alias="testDTO" type="com.kosmo.springapp.onememo.service.OneMemoDTO" />
 		<!-- LineCommentDTO는 별칭 불필요. SELECT 결과를 Map에 저장하기 때문에 -->
 	</typeAliases>
 	<mappers>
@@ -533,8 +533,56 @@ servlet.jsp 2.3.3
 2] 인터페이스 만들기 (service)
 
 	//회원가입
-	int inesert(DTO dto);
+	int inesert(TestDTO dto);
 
-3] 
+3] DTO 생성 (service)
+
+	private String id;
+	private String pwd;
+	private String name;
+	
+4] 서비스 만들기 (serviceImpl)
+	
+@Service
+
+	//인터페이스 상속받아 오버라이딩
+	@Override
+	public int insert(TestDTO dto){
+		//1.회원아이디 중복 체크
+		
+		//2. 중복 아이디가 아니면 insert, 중복이면 -1 반환
+		return 0;
+	}
+	
+5] DAO 생성 (serviceImpl)
+
+@Repository
+
+	//인터페이스 상속 받아 오버라이딩 후 삭제
+	@Resource(name="template") or @Autowired
+	private SqlSessionTemplate sqlMapper;
+	
+	//회원 정보 입력
+	public int insert(TestDTO dto){
+		return sqlMapper.insert("myInsert",dto);
+	}
+	
+	//중복 아이디 체크용
+	public boolean isExistMember(TestDTO dto){
+		return sqlMapper.selectOne("myMember",dto);
+	}
+	
+6] mapper 파일 쿼리문 작성
+
+	<insert id="myInsert" parameterType ="testDTO">
+		inset into member values(#{id},#{pwd},#{name})
+	</insert>
+	
+	<select id="myMember" paramterType="testDTO" resultType="int">
+		select count(*) from member where id=#{id} and pwd=#{pwd}
+	</select>
+	
+	
+	5] DAO 생성 (serviceImp
 
 
