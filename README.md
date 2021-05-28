@@ -389,9 +389,10 @@
 	
 #게시판 짜기
 
-0. 스피링 만들기
+0. 스피링 게시판 설정
 ---
-1]. spring 
+1]. spring 프로젝트 생성
+	new -> other -> Spring Legacy Project -> Spring MVC Project 클릭 이름 저장 -> com.~작성
 
 2] pop.xml 기본 설정
 java-version 1.8
@@ -454,6 +455,15 @@ servlet.jsp 2.3.3
 <img width="948" alt="image" src="https://user-images.githubusercontent.com/79241184/119919533-9ed1f100-bfa5-11eb-8cdc-58a250ace363.png">
 
 <img width="947" alt="image" src="https://user-images.githubusercontent.com/79241184/119919562-ab564980-bfa5-11eb-97c9-4c3da2225ee2.png">
+
+6] servelt-context.xml (webapp아래 아무곳이나 폴더를 만들어서 리소스를 두도록 설정)
+
+	<!--
+	<resources mapping="/resources/**" location="/resources/" />
+	-->
+	
+	<default-servlet-handler/>
+	
 
 5] 서버측 Context.xml, server.xml 
 
