@@ -465,11 +465,39 @@ servlet.jsp 2.3.3
 	<default-servlet-handler/>
 	
 
-7] 서버측 Context.xml, server.xml 
+7] Server Context.xml, Server.xml 
 
-	리소스 미리 등록(커넥션 풀 사용 위함)
+	Server.xml
+	<GlobalNamingResources>
+		<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxIdle="20" maxTotal="20" name="maven" password="maven" type="javax.sql.DataSource" url="jdbc:oracle:thin:@127.0.0.1:1521:xe" username="maven"/>
+		<Resource auth="Container" description="User database that can be updated and saved" factory="org.apache.catalina.users.MemoryUserDatabaseFactory" name="UserDatabase" pathname="conf/tomcat-users.xml" type="org.apache.catalina.UserDatabase"/>
+	</GlobalNamingResources>
+	
+	Context.xml
+   	<ResourceLink global="maven" name="maven" type="javax.sql.DataSource"/> 
 
-8] root-context 커넥션 풀 빈 등록
+8] configuration.xml 생성
+	
+	Java Resources -> src/main/resources -> 패키지 생성(mybatis) -> configuration.xml 생성
+	
+	<configuration>
+	<!-- JDBC를 써서 데이터베이스에 연결 : mybatis spring api 사용시에는 필요 없음 -->
+	<typeAliases>
+		<typeAlias alias="oneMemoDTO" type="com.kosmo.springapp.onememo.service.OneMemoDTO" />
+		<!-- LineCommentDTO는 별칭 불필요. SELECT 결과를 Map에 저장하기 때문에 -->
+	</typeAliases>
+	<mappers>
+		<mapper resource="onememo/mybatis/mapper/onememo.xml"/>
+		<mapper resource="onememo/mybatis/mapper/linecomment.xml"/>
+		<mapper resource="onememo/mybatis/dynamicsql.xml"/>
+	</mappers>
+	
+	</configuration>
+
+9] DTO, mapper 파일 생성
+
+
+10] root-context 커넥션 풀 빈 등록
 
 	<bean id="datasourceByJNDI" class="org.springframework.jndi.JndiObjectFactoryBean">
 	<!-- value 속성 : server.xml이나 context.xml의 <Context>태그 안의
@@ -482,7 +510,7 @@ servlet.jsp 2.3.3
 	</bean>
 
 
-9] root-context 마이바티스 지원을 위한 빈 등록
+11] root-context 마이바티스 지원을 위한 빈 등록
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
 		<!-- 데이터 소스 : 데이터베이스 연결정보(String, int같은 기본 자료형이 아니기때문에 ref로 참조) -->
@@ -495,9 +523,18 @@ servlet.jsp 2.3.3
 		<constructor-arg ref="sqlSessionFactory"/>
 	</bean>
 	
-1.
+1. 게시판 만들기
+---
+1] 패키지 만들기
+	
+	Java Resources -> src/main/java -> com.kosmo.springapp 클릭 후 패키지 생성
+	service, service.impl, web 패키지 생성
 
-10]DAO -> Service -> Controller 
-(선생님 방법 Service 인터페이스 만든 후 ServiceImpl,DAO 상속 후 override 삭제)
+2] 인터페이스 만들기 (service)
+
+	//회원가입
+	int inesert(DTO dto);
+
+3] 
 
 
