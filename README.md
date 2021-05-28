@@ -395,9 +395,11 @@
 	new -> other -> Spring Legacy Project -> Spring MVC Project 클릭 이름 저장 -> com.~작성
 
 2] pop.xml 기본 설정
-java-version 1.8
-spring version 4.3.20.Release
-servlet api 4.0.1
+
+	java-version 1.8
+	spring version 4.3.20.Release
+	
+	servlet api 4.0.1
 
 	<dependency>
 	      <groupId>javax.servlet</groupId>
@@ -406,7 +408,7 @@ servlet api 4.0.1
 	      <scope>provided</scope>
 	  </dependency>
   
-servlet.jsp 2.3.3
+	servlet.jsp 2.3.3
 
 	<dependency>
 	    <groupId>javax.servlet.jsp</groupId>
