@@ -577,7 +577,7 @@ servlet.jsp 2.3.3
 		return sqlMapper.selectOne("myMember",dto);
 	}
 	
-6] mapper 파일 쿼리문 작성
+6] configuration.xml mapper 쿼리 작성
 
 	<insert id="myInsert" parameterType ="testDTO">
 		inset into member values(#{id},#{pwd},#{name})
@@ -587,7 +587,24 @@ servlet.jsp 2.3.3
 		select count(*) from member where id=#{id} and pwd=#{pwd}
 	</select>
 	
+7] 컨트롤러 (web/TestController)
 
+@Controller
+	
+	@Resource(name="template") or @Autowired
+	private TestService service; 
+	
+	@ReqeustMapping("/join")
+	public String join(TestDTO dto, Model model){
+		//서비스 호출
+		int result = service.insert(dto);
+		if(result ==-1){
+			model.addAttribute("message","이미 중복된 아이디가 있어요");
+			return "Join";
+		}
+		//회원가입 완료시 메인으로
+		return "/";
+	}
 	
 	5] DAO 생성 (serviceImp
 
