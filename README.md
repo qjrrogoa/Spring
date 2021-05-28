@@ -481,16 +481,17 @@
 8] configuration.xml 생성
 	
 	Java Resources -> src/main/resources -> 패키지 생성(mybatis) -> configuration.xml 생성
-	
-	<typeAliases>
-		<typeAlias type="com.company.test.service.TestDTO" alias="testDTO"/>	
-		<!--LineCommentDTO는 별칭 불필요. SELECT결과를 Map에 저장하기때문에 -->
-	</typeAliases>
-	
-	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑)의 위치정보 설정 -->
-	<mappers>
-		<mapper resource="mybatis/mapper/test.xml" />
-	</mappers>
+	<configuration>
+		<typeAliases>
+			<typeAlias type="com.company.test.service.TestDTO" alias="testDTO"/>	
+			<!--LineCommentDTO는 별칭 불필요. SELECT결과를 Map에 저장하기때문에 -->
+		</typeAliases>
+
+		<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑)의 위치정보 설정 -->
+		<mappers>
+			<mapper resource="mybatis/mapper/test.xml" />
+		</mappers>
+	<configuration>
 
 9] DTO, mapper 파일 생성
 
