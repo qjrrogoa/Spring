@@ -465,11 +465,11 @@ servlet.jsp 2.3.3
 	<default-servlet-handler/>
 	
 
-5] 서버측 Context.xml, server.xml 
+7] 서버측 Context.xml, server.xml 
 
 	리소스 미리 등록(커넥션 풀 사용 위함)
 
-6] root-context 커넥션 풀 빈 등록
+8] root-context 커넥션 풀 빈 등록
 
 	<bean id="datasourceByJNDI" class="org.springframework.jndi.JndiObjectFactoryBean">
 	<!-- value 속성 : server.xml이나 context.xml의 <Context>태그 안의
@@ -482,7 +482,7 @@ servlet.jsp 2.3.3
 	</bean>
 
 
-7] root-context 마이바티스 지원을 위한 빈 등록
+9] root-context 마이바티스 지원을 위한 빈 등록
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
 		<!-- 데이터 소스 : 데이터베이스 연결정보(String, int같은 기본 자료형이 아니기때문에 ref로 참조) -->
@@ -494,5 +494,10 @@ servlet.jsp 2.3.3
 	<bean id="template" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory"/>
 	</bean>
+	
+1.
+
+10]DAO -> Service -> Controller 
+(선생님 방법 Service 인터페이스 만든 후 ServiceImpl,DAO 상속 후 override 삭제)
 
 
