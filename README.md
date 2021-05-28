@@ -389,13 +389,77 @@
 	
 #게시판 짜기
 
-1. 초기 설정
+0. 스피링 만들기
 ---
-(서버 만들었다 가정,,)
-1] 서버측 Context.xml, server.xml 
+1]. spring 
+
+2] pop.xml 기본 설정
+java-version 1.8
+spring version 4.3.20.Release
+servlet api 4.0.1
+
+	<dependency>
+	      <groupId>javax.servlet</groupId>
+	      <artifactId>javax.servlet-api</artifactId>
+	      <version>4.0.1</version>
+	      <scope>provided</scope>
+	  </dependency>
+  
+servlet.jsp 2.3.3
+
+	<dependency>
+	    <groupId>javax.servlet.jsp</groupId>
+	    <artifactId>javax.servlet.jsp-api</artifactId>
+	    <version>2.3.3</version>
+	    <scope>provided</scope>
+	</dependency>
+
+3] pop.xml 마이바티스 
+
+	 <dependency>
+	      <groupId>org.mybatis</groupId>
+	      <artifactId>mybatis</artifactId>
+	      <version>3.5.7</version>
+	  </dependency>
+
+	  <dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis-spring</artifactId>
+		<version>2.0.6</version>
+	  </dependency>
+
+	  <dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+		<version>4.3.30.RELEASE</version>  
+	  </dependency>
+
+4] pop.xml 추가기능(jackson, lombok)
+
+	<dependency>
+		<groupId>org.projectlombok</groupId>
+		<artifactId>lombok</artifactId>
+		<version>1.18.20</version>
+		<scope>provided</scope>
+	</dependency>
+
+	 <dependency>
+	   <groupId>com.fasterxml.jackson.core</groupId> 
+	   <artifactId>jackson-databind</artifactId> 
+	   <version>2.9.8</version> 
+	  </dependency>
+
+5] properties 설정
+
+	<img width="948" alt="image" src="https://user-images.githubusercontent.com/79241184/119919533-9ed1f100-bfa5-11eb-8cdc-58a250ace363.png">
+
+	<img width="947" alt="image" src="https://user-images.githubusercontent.com/79241184/119919562-ab564980-bfa5-11eb-97c9-4c3da2225ee2.png">
+
+5] 서버측 Context.xml, server.xml 
+
 	리소스 미리 등록(커넥션 풀 사용 위함)
 
-2] root-context 커넥션 풀 빈 등록
+6] root-context 커넥션 풀 빈 등록
 
 	<bean id="datasourceByJNDI" class="org.springframework.jndi.JndiObjectFactoryBean">
 	<!-- value 속성 : server.xml이나 context.xml의 <Context>태그 안의
@@ -408,7 +472,7 @@
 	</bean>
 
 
-3] root-context 마이바티스 지원을 위한 빈 등록
+7] root-context 마이바티스 지원을 위한 빈 등록
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
 		<!-- 데이터 소스 : 데이터베이스 연결정보(String, int같은 기본 자료형이 아니기때문에 ref로 참조) -->
