@@ -11,16 +11,7 @@
 <title>ViewResolver.jsp</title>
 
 <!-- 부트스트랩 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
-<!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
 	<!-- 네비게이션 시작 -->
@@ -31,11 +22,13 @@
 		<div class="page-header">
 			<h1>스프링<small>ViewResolver</small></h1>
 			<fieldset>
-				<legend>뷰 리졸버<span style="color:red;font-size:1.6em">영역 속성:${message},파라미터:${param.message},${param.name }</span></legend>
+				<legend>뷰 리졸버<span style="color: red; font-size:1.6em;">영역 속성:${message}, 파라미터:${param.message}, ${param.name}</span></legend>
 				<a href="<c:url value="/ViewResolver/ViewResolver.do"/>">InternalResourceViewResolver(기본 뷰 리졸버)</a>
 			</fieldset>
 			
 		</div>
+
+
 	</div>
 	<!-- 실제 내용 끝 -->
 	<!--  푸터 시작 -->

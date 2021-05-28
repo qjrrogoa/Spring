@@ -3,68 +3,74 @@ package com.kosmo.springapp;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 /*
-[일반 자바클래스 형태 즉 POJO(Plain Old Java Object)]
+[일반 자바클래스 형태 즉, POJO(Plain Old Java Object)]
 
-컴파일러에게 "아래 클래스는 사용자 요청을 처리하는 클래스야" 라고
-알려주는 역할]-컨트롤러 클래스
-*/
+ 컴파일러에게 "아래 클래스를 사용자 요청을 처리하는 클래스이다."라고 알려주는 역할			*/
+//컨트롤러 클래스]
 @Controller
 public class IndexController {
-	
-	
+
 	//컨트롤러 메소드]
 	@RequestMapping("/handlermapping.do")
 	public String handlerMapping() {
-		
-		//뷰정보 반환]
-		return "handlermapping01/HandlerMapping";
-	}///////////////////handlerMapping()
+		//View 정보 반환]
+		return "handlermapping01/handlermapping";
+	}///handlerMapping
 	
+	//컨트롤러 메소드]
 	@RequestMapping("/controller.do")
 	public String controller() {
-		//뷰정보 반환]
-		return "controller02/Controller";
-	}///////////////////handlerMapping()
+		//View 정보 반환]
+		return "controller02/controller";
+	}///handlerMapping
 	
 	@RequestMapping("/viewresolver.do")
 	public String viewresolver() {
-		//뷰정보 반환]
+		//View 정보 반환]
 		return "viewresolver03/ViewResolver";
-	}///////////////////handlerMapping()
+	}///viewresolver
 	
 	@RequestMapping("/returntype.do")
 	public String returntype() {
-		//뷰정보 반환]
+		//View 정보 반환]
 		return "returntype04/ReturnType";
-	}///////////////////handlerMapping()
+	}///returntype
 	
 	@RequestMapping("/injection.do")
 	public String injection() {
-		//뷰정보 반환]
-		return "injection05/Injection";
-	}///////////////////handlerMapping()
+		//View 정보 반환]
+		return "Injection05/Injection";
+	}///injection
+	
 	@RequestMapping("/annotation.do")
 	public String annotation() {
-		//뷰정보 반환]
+		//View 정보 반환]
 		return "annotation06/Annotation";
-	}///////////////////handlerMapping()
+	}///annotation
+	
 	@RequestMapping("/database.do")
 	public String database() {
-		//뷰정보 반환]
+		//View 정보 반환]
 		return "database07/Database";
-	}///////////////////handlerMapping()
+	}///database
+	
 	@RequestMapping("/resource.do")
 	public String resource() {
-		//뷰정보 반환]
+		//View 정보 반환]
 		return "resource08/Resource";
-	}///////////////////handlerMapping()
+	}///resource
+	
 	@RequestMapping("/validation.do")
 	public String validation() {
-		//뷰정보 반환]
+		//View 정보 반환]
 		return "validation09/Validation";
-	}///////////////////handlerMapping()
-
-}
+	}///resource
+	
+	@RequestMapping("/dynamicsql.do")
+	public String dynamicsql() {
+		//View 정보 반환]
+		return "dynamicsql11/DynamicSQL";
+	}///resource
+	
+}///IndexController

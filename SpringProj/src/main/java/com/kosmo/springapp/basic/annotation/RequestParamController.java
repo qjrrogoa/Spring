@@ -8,101 +8,89 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+//컨트롤러 클래스
 @Controller
 @RequestMapping("/Annotation")
 public class RequestParamController {
+
+	//기본의 방법] 컨트롤러 메소드
+//	@RequestMapping("/RequestParamEqual.do")
+/*	public String equals(HttpServletRequest req) {
+		try {
+		//파라미터 받기] HttpServletRequest 사용시
+		String name = req.getParameter("name");
+		int age = Integer.parseInt(req.getParameter("years"));
+		
+		//리퀘스트 영역에 저장
+		req.setAttribute("name", name);
+		req.setAttribute("years", age+10);
+		}catch (Exception e) {
+			req.setAttribute("errorNumber","나이는 숫자만...");
+		}
+		//뷰정보 반환
+		return "annotation06/Annotation";
+	}
+*/	
 	
-	/*[ 파라미터 받기 ]*/	
-	 /*
-	  *  파라미터를 받기 위해 HttpServletRequest 사용 안하고
-	  *  @RequestParam어노테이션 사용
-	  * 
-	  * -파라미터의 자료형으로 받을 수 있다(String이나 int로 즉 형변환 불필요)
-	  * -단,파라미터가 여러개일때는 
-	  *  @ModelAttribute어노테이션이나 @RequestParam Map map이 유리
-	  *  단,Map으로 받을때 체크박스류는 여러개 값중 하나만
-	  *  
-	  * -파라미터가 1~2개일때 유리하다
-	  * -사용자가 전달한 파라미터 값이 매개변수에 저장됨
-	  *  즉 매개변수명=리퀘스트객체.getParameter("파라미터명")와 같다
-	  *  
-	  * -required속성은 디폴트가 true이다 
-	  *  만약 파라미터명이 매개변수 명과 다르다면
-	  *  
-	  *  방법1]    
-	  *  @RequestParam(value="파라미터명") 자료형 매개변수명 -
-	  *  required가 true
-	  *  해당 파라미터명으로 전달이 안되면 에러(400에러)
-	  *  
-	  *  방법2]
-	  *   @RequestParam(value="파라미터명",required=false) 자료형 매개변수명 
-	  *   해당 파라미터명으로 전달이 안되도 필수가 아니기때문에
-	  *   에러안남  *  
-	  *  
-	  */ 
+	//어노테이션을 이용한 방법] 컨트롤러 메소드 - Get파라미터를 받을필요없고, 형변환하지 않아도 됨
+	@RequestMapping("/RequestParamEqual.do")
+	public String equals(@RequestParam String name,@RequestParam int years, Model model) {
+		
+		//데이터 저장
+		model.addAttribute("name",name);
+		model.addAttribute("years",years+10);
+		//years에 숫자가 아닌 데이터를 받으면 에러가 발생하지만 try~catch 문법을 시도할수없음
+		
+		//뷰정보 반환
+		return "annotation06/Annotation";
+	}
 	
-	//@RequestParam어노테이션 사용시-나이를 숫자가 아닌 값 입력시 오류처리]	
+	//모든 예외를 처리하는 문구
 	/*
 	@ExceptionHandler({Exception.class})
-	public String error(Exception e,Model model) {
-		//model.addAttribute("errorNumber","Please Input Number in the Years Field!!");
+	public String error(Exception e, Model model) {
+		model.addAttribute("errorNumber","나이는 숫자만...");
+		System.out.println(e);
+		//에러 발생시
 		//return "annotation06/Annotation";
 		//return "annotation06/Annotation.jsp?error="+e.getMessage();
 		return "forward:/WEB-INF/views/annotation06/Annotation.jsp?error="+e.getMessage();
-	}////////////	
+	}
 	*/
-	//컨트롤러 메소드-파라미터명과 변수 일치시
-	@RequestMapping("/RequestParamEqual.do")
-	public String equals(@RequestParam String name,@RequestParam int years,Model model ) {
-//	public String equals(HttpServletRequest req) {
-//		try {
-//			//파라미터 받기]-HttpServletRequest사용시
-//			String name=req.getParameter("name");
-//			int age=Integer.parseInt(req.getParameter("years"));
-//			//리퀘스트 영역에 저장
-//			req.setAttribute("name", name);
-//			req.setAttribute("years", age+10);
-//		}
-//		catch(Exception e) {
-//			req.setAttribute("errorNumber", "나이는 숫자만...");
-//		}
-		//@RequestParam으로 받을때는 위의 getParameter() 불필요 및
-		//형변환도 불필요.	
-		//데이타 저장]
-		model.addAttribute("name", name);
-		model.addAttribute("years", years+10);
-		//뷰정보 반환]
-		return "annotation06/Annotation";
-	}///////////////
+	
 	@RequestMapping("/RequestParamDiff.do")
-	public String diff(Model model,@RequestParam(defaultValue = "한소인",required = false,value = "nick2") String name,@RequestParam("age") int years) {
-		//데이타 저장]
+	//@RequestParam(required = false) 필수사항이 아니라는 뜻으로, 값이 제대로 넘어오지 않아도 실행이 됨
+	//@RequestParam(defaultValue = "한소인") 값이 넘어오지 않는다면 디폴트값으로 지정할 문자열을 설정해줌
+	//@RequestParam(value = "nick2") 현재 지정한 매개변수명과 파라미터가 다를경우 value 속성으로 직접 정해줄수있음
+	public String diff(@RequestParam(required = false, defaultValue = "한소인", value = "nick2") String name, @RequestParam("age") int years, Model model) {
+		//데이터 저장
+		System.out.println("name : "+name);
+		model.addAttribute("name",name);
+		model.addAttribute("years",years+10);
 		
-		model.addAttribute("name", name);
-		model.addAttribute("years", years+10);
-		//뷰정보 반환]
+		//뷰정보 반환
 		return "annotation06/Annotation";
-		
-	}////////////
-	//컨트롤러 메소드]-Map으로 파라미터 받기.
-	//단,체크박스는 여러개 선택해도 하나만 받는다.
+	}
+	
+	
+	//컨트롤러 메소드] - Map으로 파라미터 받기
+	//단, 체크박스는 여러개를 선택해도 하나만 받아진다.
 	@RequestMapping("/RequestParamMap.do")
-	public String map(@RequestParam Map map,ModelMap model,@RequestParam String[] inters) {
-		//폼의 파라미터명이 키값이 되고 입력하거나 선택한 값이 값이된다
-		//단 체크박스류는 무조건 첫번째 선택한 것만 저장된다.
-		//데이타 저장]
+	public String map(@RequestParam Map map, ModelMap model,@RequestParam String[] inters) {
+		//폼의 파라미터명이 키값이 되고, 입력하거나 선택한 값이 value가 된다.
+		//단, 체크박스류는 무조건 첫번째 선택한것만 저장된다.
 		System.out.println("inters(map에 저장된 키값):"+map.get("inters"));
 		System.out.println("inters(String[]):"+inters);
-		map.put("inters",Arrays.toString(inters));
+		
+		//데이터 저장
+		map.put("inters", Arrays.toString(inters));
 		model.addAllAttributes(map);
-		//뷰정보 반환]
+		
+		//뷰정보 반환
 		return "annotation06/Annotation";
-	}///////////////
-	
-	
-}
+	}
+}///////

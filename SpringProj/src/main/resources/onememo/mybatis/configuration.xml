@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<!-- MyBatis 환경설정파일
+1. 데이터베이스 연결정보 설정 (root-context.xml에서 작성하기 때문에 필요없음)
+2. Mapper파일의 위치정보 설정 -->
 <configuration>
-<!-- myBatis 환경설정파일 1]데이타베이스 연결정보 설정 2]매퍼파일의 위치정보 설정 -->
-	<!--마이바티스에서 사용할 .properties(리소스파일) 설정 -->
-	<!-- 
-	properties태그가 typeAliases태그보다 위에 위치
-	 -->
-	<properties resource="onememo/mybatis/connect.properties" />
-
+	<!-- 마이바티스에서 사용할 리소스 파일(.properties) 설정 -->
+	<properties resource="onememo/mybatis/connect.properties"/>
+	
+	<!-- JDBC를 써서 데이터베이스에 연결 : mybatis spring api 사용시에는 필요 없음 -->
 	<typeAliases>
-		<typeAlias type="com.kosmo.springapp.onememo.service.OneMemoDTO" alias="oneMemoDTO"/>	
-		<!--LineCommentDTO는 별칭 불필요. SELECT결과를 Map에 저장하기때문에 -->
+		<typeAlias alias="oneMemoDTO" type="com.kosmo.springapp.onememo.service.OneMemoDTO" />
+		<!-- LineCommentDTO는 별칭 불필요. SELECT 결과를 Map에 저장하기 때문에 -->
 	</typeAliases>
-
 	
-	
-	<!-- 데이타베이스 연결정보 설정 -->
-	<!-- mybatis-spring-2.x.jar의 API사용시 연결정보 불필요 -->
-	<!--  
+<!--
 	<environments default="development">
-	
 		<environment id="development">
-			
-			<transactionManager type="JDBC" />
-			  커넥션 풀 미 사용 
+			<transactionManager type="JDBC"/>
+-->
+			<!-- 커넥션 풀 미사용 -->
+<!-- 
 			<dataSource type="POOLED">
-				<property name="driver" value="${driver}" />
-				<property name="url" value="${url}" />
-				<property name="username" value="${username}" />
-				<property name="password" value="${password}" />
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
 			</dataSource>
-			
-			  커넥션 풀  사용   
+ -->
+			<!-- 커넥션 풀 사용 -->
+<!--
 			<dataSource type="JNDI">
 				<property name="data_source" value="${JNDI_NAME}"/>
 			</dataSource>
 		</environment>
 	</environments>
-	-->
-	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑)의 위치정보 설정 -->
+-->
+	<!-- 매퍼파일의 위치 설정 : SQL쿼리 결과와 자바빈 매핑 -->
 	<mappers>
-		<mapper resource="onememo/mybatis/mapper/onememo.xml" />
-		<mapper resource="onememo/mybatis/mapper/linecomment.xml" />
+		<mapper resource="onememo/mybatis/mapper/onememo.xml"/>
+		<mapper resource="onememo/mybatis/mapper/linecomment.xml"/>
+		<mapper resource="onememo/mybatis/dynamicsql.xml"/>
 	</mappers>
 </configuration>

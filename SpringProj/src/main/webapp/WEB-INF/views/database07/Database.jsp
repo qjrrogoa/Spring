@@ -11,16 +11,7 @@
 <title>Database.jsp</title>
 
 <!-- 부트스트랩 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
-<!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
 	<!-- 네비게이션 시작 -->
@@ -29,17 +20,15 @@
 	<!-- 실제 내용 시작 -->
 	<div class="container">
 		<div class="page-header">
-			<h1>스프링<small>Database</small></h1>			
-		</div>
+			<h1>스프링<small>Database</small></h1>
 		<fieldset>
-			<legend>데이타베이스 연동<span>${message}${param.method}</span></legend>
+			<legend>데이터베이스 연동 : <span>${message}</span><span style="color: red; font-size: 1.4em;">${param.method}</span></legend>
 			<ul>
 				<li><a href="<c:url value="/Database/JDBConnection.do?method=JDBC"/>">스프링 JDBC API사용</a></li>
 				<li><a href="<c:url value="/Database/JNDIConnection.do?method=JNDI"/>">스프링 JNDI API사용</a></li>
-			
 			</ul>
-		
 		</fieldset>
+		</div>
 	</div>
 	<!-- 실제 내용 끝 -->
 	<!--  푸터 시작 -->
