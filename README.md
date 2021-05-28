@@ -389,14 +389,245 @@
 	
 #게시판 짜기
 
+0. 스피링 게시판 설정
+---
+1]. spring 프로젝트 생성
+	new -> other -> Spring Legacy Project -> Spring MVC Project 클릭 이름 저장 -> com.~작성
+
+2] pop.xml 기본 설정
+java-version 1.8
+spring version 4.3.20.Release
+servlet api 4.0.1
+
+	<dependency>
+	      <groupId>javax.servlet</groupId>
+	      <artifactId>javax.servlet-api</artifactId>
+	      <version>4.0.1</version>
+	      <scope>provided</scope>
+	  </dependency>
+  
+servlet.jsp 2.3.3
+
+	<dependency>
+	    <groupId>javax.servlet.jsp</groupId>
+	    <artifactId>javax.servlet.jsp-api</artifactId>
+	    <version>2.3.3</version>
+	    <scope>provided</scope>
+	</dependency>
+
+3] pop.xml 마이바티스 
+
+	 <dependency>
+	      <groupId>org.mybatis</groupId>
+	      <artifactId>mybatis</artifactId>
+	      <version>3.5.7</version>
+	  </dependency>
+
+	  <dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis-spring</artifactId>
+		<version>2.0.6</version>
+	  </dependency>
+
+	  <dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+		<version>4.3.30.RELEASE</version>  
+	  </dependency>
+
+4] pop.xml 추가기능(jackson, lombok)
+
+	<dependency>
+		<groupId>org.projectlombok</groupId>
+		<artifactId>lombok</artifactId>
+		<version>1.18.20</version>
+		<scope>provided</scope>
+	</dependency>
+
+	 <dependency>
+	   <groupId>com.fasterxml.jackson.core</groupId> 
+	   <artifactId>jackson-databind</artifactId> 
+	   <version>2.9.8</version> 
+	  </dependency>
+
+5] properties 설정
+
+<img width="948" alt="image" src="https://user-images.githubusercontent.com/79241184/119919533-9ed1f100-bfa5-11eb-8cdc-58a250ace363.png">
+
+<img width="947" alt="image" src="https://user-images.githubusercontent.com/79241184/119919562-ab564980-bfa5-11eb-97c9-4c3da2225ee2.png">
+
+6] servelt-context.xml (webapp아래 아무곳이나 폴더를 만들어서 리소스를 두도록 설정)
+
+	<!--
+	<resources mapping="/resources/**" location="/resources/" />
+	-->
+	
+	<default-servlet-handler/>
+	
+
+7] Server Context.xml, Server.xml 
+
+	Server.xml
+	<GlobalNamingResources>
+		<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxIdle="20" maxTotal="20" name="maven" password="maven" type="javax.sql.DataSource" url="jdbc:oracle:thin:@127.0.0.1:1521:xe" username="maven"/>
+		<Resource auth="Container" description="User database that can be updated and saved" factory="org.apache.catalina.users.MemoryUserDatabaseFactory" name="UserDatabase" pathname="conf/tomcat-users.xml" type="org.apache.catalina.UserDatabase"/>
+	</GlobalNamingResources>
+	
+	Context.xml
+   	<ResourceLink global="maven" name="maven" type="javax.sql.DataSource"/> 
+
+8] configuration.xml 생성
+	
+	Java Resources -> src/main/resources -> 패키지 생성(mybatis) -> configuration.xml 생성
+	
+	<typeAliases>
+		<typeAlias type="com.company.test.service.TestDTO" alias="testDTO"/>	
+		<!--LineCommentDTO는 별칭 불필요. SELECT결과를 Map에 저장하기때문에 -->
+	</typeAliases>
+	
+	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑)의 위치정보 설정 -->
+	<mappers>
+		<mapper resource="mybatis/mapper/test.xml" />
+	</mappers>
+
+9] DTO, mapper 파일 생성
 
 
-#mybati ㄱ
-#mybati게[겍
-#mybatis
-겍
-#mybatis
-겍
-#mybatis
+10] root-context 커넥션 풀 빈 등록
 
+	<bean id="datasource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="maven" />
+		<property name="resourceRef" value="true" />
+	</bean>
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="datasource" />
+		<property name="configLocation"
+			value="classpath:mybatis/configuration.xml" />
+	</bean>
+
+	<bean id="template" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+
+11] root-context 마이바티스 지원을 위한 빈 등록
+	
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="datasource" />
+		<property name="configLocation" value="classpath:mybatis/configuration.xml" />
+	</bean>
+
+	<bean id="template" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+12] web.xml 한글 안 깨지게 
+
+	<filter>
+		<filter-name>CharacterEncoding</filter-name> <!-- filter-name은 임의로 -->
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<!-- param-name과 param-value은 아래처럼 -->
+			<param-name>encoding</param-name><!--setEncoding()호출 -->
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+1. 게시판 만들기
+---
+1] 패키지 만들기
+	
+	Java Resources -> src/main/java -> com.kosmo.springapp 클릭 후 패키지 생성
+	service, service.impl, web 패키지 생성
+
+2] 인터페이스 만들기 (service/TestService)
+
+	//회원가입
+	int inesert(TestDTO dto);
+
+3] DTO 생성 (service/TestDTO)
+@Data
+@Builder
+@NoArgs
+@AllArgs
+
+	private String id;
+	private String pwd;
+	private String name;
+	
+4] 서비스 만들기 (serviceImpl/TestServiceImpl)
+	
+@Service
+
+	//인터페이스 상속받아 오버라이딩
+	@Resource(name="template") or @Autowired
+	private TestDAO dao;
+	
+	@Override
+	public int insert(TestDTO dto){
+		//1.회원아이디 중복 체크
+		int count = dao.isExisetMember(dto);
+		//2. 중복 아이디가 아니면 insert, 중복이면 -1 반환
+		if(count == 1 ) 
+			return -1;
+		return dao.insert(dto);
+	}
+	
+5] DAO 생성 (serviceImpl/TestDAO)
+
+@Repository
+
+	//인터페이스 상속 받아 오버라이딩 후 삭제
+	@Resource(name="template") or @Autowired
+	private SqlSessionTemplate sqlMapper;
+	
+	//회원 정보 입력
+	public int insert(TestDTO dto){
+		return sqlMapper.insert("myInsert",dto);
+	}
+	
+	//중복 아이디 체크용
+	public int isExistMember(TestDTO dto){
+		return sqlMapper.selectOne("myMember",dto);
+	}
+	
+6] text.xml mapper 쿼리 작성
+
+	<insert id="myInsert" parameterType ="testDTO">
+		inset into member values(#{id},#{pwd},#{name})
+	</insert>
+	
+	<select id="myMember" paramterType="testDTO" resultType="int">
+		select count(*) from member where id=#{id} and pwd=#{pwd}
+	</select>
+	
+7] 컨트롤러 (web/TestController)
+
+@Controller
+	
+	@Resource(name="template") or @Autowired
+	private TestService service; 
+	
+	@ReqeustMapping("/join")
+	public String join(TestDTO dto, Model model){
+		//서비스 호출
+		int result = service.insert(dto);
+		if(result ==-1){
+			model.addAttribute("message","이미 중복된 아이디가 있어요");
+			return "Join";
+		}
+		//회원가입 완료시 메인으로
+		return "forward:/";
+	}
+	
+
+8] View 만들기 (join.jsp)
 
