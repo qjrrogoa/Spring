@@ -503,16 +503,7 @@
 		<property name="resourceRef" value="true" />
 	</bean>
 
-	<bean id="sqlSessionFactory"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="datasource" />
-		<property name="configLocation"
-			value="classpath:mybatis/configuration.xml" />
-	</bean>
 
-	<bean id="template" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean>
 
 
 11] root-context 마이바티스 지원을 위한 빈 등록
@@ -520,7 +511,8 @@
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="datasource" />
-		<property name="configLocation" value="classpath:mybatis/configuration.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis/configuration.xml" />
 	</bean>
 
 	<bean id="template" class="org.mybatis.spring.SqlSessionTemplate">
