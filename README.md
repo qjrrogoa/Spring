@@ -480,48 +480,66 @@ servlet.jsp 2.3.3
 	
 	Java Resources -> src/main/resources -> 패키지 생성(mybatis) -> configuration.xml 생성
 	
-	<configuration>
-	<!-- JDBC를 써서 데이터베이스에 연결 : mybatis spring api 사용시에는 필요 없음 -->
 	<typeAliases>
-		<typeAlias alias="testDTO" type="com.kosmo.springapp.onememo.service.OneMemoDTO" />
-		<!-- LineCommentDTO는 별칭 불필요. SELECT 결과를 Map에 저장하기 때문에 -->
+		<typeAlias type="com.company.test.service.TestDTO" alias="testDTO"/>	
+		<!--LineCommentDTO는 별칭 불필요. SELECT결과를 Map에 저장하기때문에 -->
 	</typeAliases>
-	<mappers>
-		<mapper resource="onememo/mybatis/mapper/onememo.xml"/>
-		<mapper resource="onememo/mybatis/mapper/linecomment.xml"/>
-		<mapper resource="onememo/mybatis/dynamicsql.xml"/>
-	</mappers>
 	
-	</configuration>
+	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑)의 위치정보 설정 -->
+	<mappers>
+		<mapper resource="mybatis/mapper/test.xml" />
+	</mappers>
 
 9] DTO, mapper 파일 생성
 
 
 10] root-context 커넥션 풀 빈 등록
 
-	<bean id="datasourceByJNDI" class="org.springframework.jndi.JndiObjectFactoryBean">
-	<!-- value 속성 : server.xml이나 context.xml의 <Context>태그 안의
-		<ResourceLink>태그의 name속성에 지정한 이름 -->
-		<property name="jndiName" value="maven"/>
-	<!-- resourceRef를 사용하지 않은 경우(디폴트 : false)에는 위의 jndiName속성의 값으로
-		 해당 WAS서버의 루트 디렉토리(java:/comp/env/)까지 모두 작성해야줘야하는 번거로움이 발생함
-		 예] <property name="jndiName" value="java:/comp/env/maven"/>		 -->
-		<property name="resourceRef" value="true"/>
+	<bean id="datasource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="maven" />
+		<property name="resourceRef" value="true" />
+	</bean>
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="datasource" />
+		<property name="configLocation"
+			value="classpath:mybatis/configuration.xml" />
+	</bean>
+
+	<bean id="template" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
 
 
 11] root-context 마이바티스 지원을 위한 빈 등록
 	
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
-		<!-- 데이터 소스 : 데이터베이스 연결정보(String, int같은 기본 자료형이 아니기때문에 ref로 참조) -->
-		<property name="dataSource" ref="datasourceByJNDI"/>
-		<property name="configLocation" value="classpath:onememo/mybatis/configuration.xml"></property>
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="datasource" />
+		<property name="configLocation" value="classpath:mybatis/configuration.xml" />
 	</bean>
 
-	<!-- 2]sqlSessionTemplate : OpenSession 호출, Commit, Close 할필요 없음 -->
 	<bean id="template" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory"/>
+		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
+
+12] web.xml 한글 안 깨지게 
+
+	<filter>
+		<filter-name>CharacterEncoding</filter-name> <!-- filter-name은 임의로 -->
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<!-- param-name과 param-value은 아래처럼 -->
+			<param-name>encoding</param-name><!--setEncoding()호출 -->
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	
 1. 게시판 만들기
 ---
@@ -536,6 +554,10 @@ servlet.jsp 2.3.3
 	int inesert(TestDTO dto);
 
 3] DTO 생성 (service)
+@Data
+@Builder
+@NoArgs
+@AllArgs
 
 	private String id;
 	private String pwd;
@@ -577,7 +599,7 @@ servlet.jsp 2.3.3
 		return sqlMapper.selectOne("myMember",dto);
 	}
 	
-6] configuration.xml mapper 쿼리 작성
+6] text.xml mapper 쿼리 작성
 
 	<insert id="myInsert" parameterType ="testDTO">
 		inset into member values(#{id},#{pwd},#{name})
@@ -603,9 +625,9 @@ servlet.jsp 2.3.3
 			return "Join";
 		}
 		//회원가입 완료시 메인으로
-		return "/";
+		return "forward:/";
 	}
 	
-	5] DAO 생성 (serviceImp
 
+8] View 만들기 (join.jsp)
 
