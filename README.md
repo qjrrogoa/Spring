@@ -391,19 +391,34 @@
 
 1. 초기 설정
 ---
-
+(서버 만들었다 가정,,)
 1] 서버측 Context.xml, server.xml 
 	리소스 미리 등록(커넥션 풀 사용 위함)
 
 2] root-context 커넥션 풀 빈 등록
+
 	<bean id="datasourceByJNDI" class="org.springframework.jndi.JndiObjectFactoryBean">
+	<!-- value 속성 : server.xml이나 context.xml의 <Context>태그 안의
+		<ResourceLink>태그의 name속성에 지정한 이름 -->
 		<property name="jndiName" value="maven"/>
+	<!-- resourceRef를 사용하지 않은 경우(디폴트 : false)에는 위의 jndiName속성의 값으로
+		 해당 WAS서버의 루트 디렉토리(java:/comp/env/)까지 모두 작성해야줘야하는 번거로움이 발생함
+		 예] <property name="jndiName" value="java:/comp/env/maven"/>		 -->
 		<property name="resourceRef" value="true"/>
 	</bean>
-	
+
 
 3] root-context 마이바티스 지원을 위한 빈 등록
-
-
 	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+		<!-- 데이터 소스 : 데이터베이스 연결정보(String, int같은 기본 자료형이 아니기때문에 ref로 참조) -->
+		<property name="dataSource" ref="datasourceByJNDI"/>
+		<property name="configLocation" value="classpath:onememo/mybatis/configuration.xml"></property>
+	</bean>
+
+	<!-- 2]sqlSessionTemplate : OpenSession 호출, Commit, Close 할필요 없음 -->
+	<bean id="template" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+
 
