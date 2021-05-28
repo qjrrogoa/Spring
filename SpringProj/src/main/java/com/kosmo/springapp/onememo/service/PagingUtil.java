@@ -20,7 +20,7 @@ public class PagingUtil {
 		int blockCount = 1;
 		
 		//페이지를 뿌려주는 로직
-		//블락 페이지 수만큼 혹은 마지막 페이지가 될때까지 페이지를 표시한다.
+		//블락 페이지 수만큼 혹은 마지막 페이지가 될때까지 페이지를 표시한다1 
 		while(blockCount <= blockPage && intTemp <= totalPage){  // 페이지 오버 를 체크
 				//현재 페이지를 의미함
 			if(intTemp == nowPage){  
@@ -58,12 +58,12 @@ public class PagingUtil {
 		if(intTemp != 1){
 			pagingStr+="<li>\r\n" + 
 					"<a href='"+page+"nowPage=1'>\r\n" + 
-					"<span aria-hidden=\"true\">&laquo;</span>\r\n" + 
+					"<span >&laquo;</span>\r\n" + 
 					"</a>\r\n" + 
 					"</li>\r\n" + 
 					"<li >\r\n" + 
 					"<a href='"+page+"nowPage="+(intTemp -blockPage)+"' >\r\n" + 
-					"<span aria-hidden=\"true\">&lsaquo;</span>\r\n" + 
+					"<span >&lsaquo;</span>\r\n" + 
 					"</a>\r\n" + 
 					"</li>";   
 			
@@ -92,12 +92,12 @@ public class PagingUtil {
 		if(intTemp <= totalPage){
 			pagingStr+="<li>\r\n" + 
 					"<a href='"+page+"nowPage="+intTemp+"'>\r\n" + 
-					"<span aria-hidden=\"true\">&rsaquo;</span>\r\n" + 
+					"<span >&rsaquo;</span>\r\n" + 
 					"</a>\r\n" + 
 					"</li>\r\n" + 
 					"<li>\r\n" + 
 					"<a href='"+page+"nowPage="+totalPage+"' >\r\n" + 
-					"<span aria-hidden=\"true\">&raquo;</span>\r\n" + 
+					"<span >&raquo;</span>\r\n" + 
 					"</a>\r\n" + 
 					"</li>";
 							   
