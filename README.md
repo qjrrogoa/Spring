@@ -389,14 +389,21 @@
 	
 #게시판 짜기
 
+1. 초기 설정
+---
+
+1] 서버측 Context.xml, server.xml 
+	리소스 미리 등록(커넥션 풀 사용 위함)
+
+2] root-context 커넥션 풀 빈 등록
+	<bean id="datasourceByJNDI" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="maven"/>
+		<property name="resourceRef" value="true"/>
+	</bean>
+	
+
+3] root-context 마이바티스 지원을 위한 빈 등록
 
 
-#mybati ㄱ
-#mybati게[겍
-#mybatis
-겍
-#mybatis
-겍
-#mybatis
-
+	
 
