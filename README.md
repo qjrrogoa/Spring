@@ -546,12 +546,17 @@ servlet.jsp 2.3.3
 @Service
 
 	//인터페이스 상속받아 오버라이딩
+	@Resource(name="template") or @Autowired
+	private TestDAO dao;
+	
 	@Override
 	public int insert(TestDTO dto){
 		//1.회원아이디 중복 체크
-		
+		int count = dao.isExisetMember(dto);
 		//2. 중복 아이디가 아니면 insert, 중복이면 -1 반환
-		return 0;
+		if(count == 1 ) 
+			return -1;
+		return dao.insert(dto);
 	}
 	
 5] DAO 생성 (serviceImpl)
@@ -568,7 +573,7 @@ servlet.jsp 2.3.3
 	}
 	
 	//중복 아이디 체크용
-	public boolean isExistMember(TestDTO dto){
+	public int isExistMember(TestDTO dto){
 		return sqlMapper.selectOne("myMember",dto);
 	}
 	
@@ -582,6 +587,7 @@ servlet.jsp 2.3.3
 		select count(*) from member where id=#{id} and pwd=#{pwd}
 	</select>
 	
+
 	
 	5] DAO 생성 (serviceImp
 
