@@ -548,12 +548,12 @@ servlet.jsp 2.3.3
 	Java Resources -> src/main/java -> com.kosmo.springapp 클릭 후 패키지 생성
 	service, service.impl, web 패키지 생성
 
-2] 인터페이스 만들기 (service)
+2] 인터페이스 만들기 (service/TestService)
 
 	//회원가입
 	int inesert(TestDTO dto);
 
-3] DTO 생성 (service)
+3] DTO 생성 (service/TestDTO)
 @Data
 @Builder
 @NoArgs
@@ -563,7 +563,7 @@ servlet.jsp 2.3.3
 	private String pwd;
 	private String name;
 	
-4] 서비스 만들기 (serviceImpl)
+4] 서비스 만들기 (serviceImpl/TestServiceImpl)
 	
 @Service
 
@@ -581,7 +581,7 @@ servlet.jsp 2.3.3
 		return dao.insert(dto);
 	}
 	
-5] DAO 생성 (serviceImpl)
+5] DAO 생성 (serviceImpl/TestDAO)
 
 @Repository
 
