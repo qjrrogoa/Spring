@@ -395,9 +395,11 @@
 	new -> other -> Spring Legacy Project -> Spring MVC Project 클릭 이름 저장 -> com.~작성
 
 2] pop.xml 기본 설정
-java-version 1.8
-spring version 4.3.20.Release
-servlet api 4.0.1
+
+	java-version 1.8
+	spring version 4.3.20.Release
+	
+	servlet api 4.0.1
 
 	<dependency>
 	      <groupId>javax.servlet</groupId>
@@ -406,7 +408,7 @@ servlet api 4.0.1
 	      <scope>provided</scope>
 	  </dependency>
   
-servlet.jsp 2.3.3
+	servlet.jsp 2.3.3
 
 	<dependency>
 	    <groupId>javax.servlet.jsp</groupId>
@@ -478,17 +480,20 @@ servlet.jsp 2.3.3
 
 8] configuration.xml 생성
 	
+	
+	<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 	Java Resources -> src/main/resources -> 패키지 생성(mybatis) -> configuration.xml 생성
-	
-	<typeAliases>
-		<typeAlias type="com.company.test.service.TestDTO" alias="testDTO"/>	
-		<!--LineCommentDTO는 별칭 불필요. SELECT결과를 Map에 저장하기때문에 -->
-	</typeAliases>
-	
-	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑)의 위치정보 설정 -->
-	<mappers>
-		<mapper resource="mybatis/mapper/test.xml" />
-	</mappers>
+	<configuration>
+		<typeAliases>
+			<typeAlias type="com.company.test.service.TestDTO" alias="testDTO"/>	
+			<!--LineCommentDTO는 별칭 불필요. SELECT결과를 Map에 저장하기때문에 -->
+		</typeAliases>
+
+		<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑)의 위치정보 설정 -->
+		<mappers>
+			<mapper resource="mybatis/mapper/test.xml" />
+		</mappers>
+	</configuration>
 
 9] DTO, mapper 파일 생성
 
@@ -500,16 +505,7 @@ servlet.jsp 2.3.3
 		<property name="resourceRef" value="true" />
 	</bean>
 
-	<bean id="sqlSessionFactory"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="datasource" />
-		<property name="configLocation"
-			value="classpath:mybatis/configuration.xml" />
-	</bean>
 
-	<bean id="template" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean>
 
 
 11] root-context 마이바티스 지원을 위한 빈 등록
@@ -517,7 +513,8 @@ servlet.jsp 2.3.3
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="datasource" />
-		<property name="configLocation" value="classpath:mybatis/configuration.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis/configuration.xml" />
 	</bean>
 
 	<bean id="template" class="org.mybatis.spring.SqlSessionTemplate">
