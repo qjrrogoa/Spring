@@ -480,6 +480,8 @@
 
 8] configuration.xml 생성
 	
+	
+	<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 	Java Resources -> src/main/resources -> 패키지 생성(mybatis) -> configuration.xml 생성
 	<configuration>
 		<typeAliases>
@@ -491,7 +493,7 @@
 		<mappers>
 			<mapper resource="mybatis/mapper/test.xml" />
 		</mappers>
-	<configuration>
+	</configuration>
 
 9] DTO, mapper 파일 생성
 
