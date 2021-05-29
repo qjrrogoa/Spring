@@ -583,7 +583,7 @@
 @Repository
 
 	//인터페이스 상속 받아 오버라이딩 후 삭제
-	@Resource(name="template") or @Autowired
+	@Resource(name="template"(sqlmapper id)) or @Autowired
 	private SqlSessionTemplate sqlMapper;
 	
 	//회원 정보 입력
