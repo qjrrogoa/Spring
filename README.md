@@ -565,7 +565,7 @@
 @Service
 
 	//인터페이스 상속받아 오버라이딩
-	@Resource(name="template") or @Autowired
+	@Resource(name="") or @Autowired
 	private TestDAO dao;
 	
 	@Override
