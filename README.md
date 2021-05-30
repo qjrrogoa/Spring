@@ -608,7 +608,8 @@
 	
 7] 컨트롤러 (web/TestController)
 
-@Controller
+@SessionAttributes({"id"}) //세션에 저장한 값 컨트롤러에 저장하기
+Controller
 	
 	@Resource(name="template") or @Autowired
 	private TestService service; 
