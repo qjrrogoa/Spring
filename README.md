@@ -565,7 +565,7 @@
 @Service
 
 	//인터페이스 상속받아 오버라이딩
-	@Resource(name="template") or @Autowired
+	@Resource(name="") or @Autowired
 	private TestDAO dao;
 	
 	@Override
@@ -583,7 +583,7 @@
 @Repository
 
 	//인터페이스 상속 받아 오버라이딩 후 삭제
-	@Resource(name="template") or @Autowired
+	@Resource(name="template"(sqlmapper id)) or @Autowired
 	private SqlSessionTemplate sqlMapper;
 	
 	//회원 정보 입력
@@ -608,7 +608,8 @@
 	
 7] 컨트롤러 (web/TestController)
 
-@Controller
+@SessionAttributes({"id"}) //세션에 저장한 값 컨트롤러에 저장하기
+Controller
 	
 	@Resource(name="template") or @Autowired
 	private TestService service; 
