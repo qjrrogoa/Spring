@@ -57,6 +57,7 @@
 				<li><a href="<c:url value="/resource.do"/>">리소스</a></li>
 				<li><a href="<c:url value="/validation.do"/>">유효성 검증</a></li>
 				<li><a href="<c:url value="/dynamicsql.do"/>">마이바티스 동적 SQL</a></li>
+				<li><a href="<c:url value="/ajax.do"/>">Ajax요청</a></li>
 			</ul>
 		</fieldset>
 		

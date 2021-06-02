@@ -28,7 +28,7 @@ body {
 					class="icon-bar"></span>
 			</button>
 			<!-- CI표시 -->
-			<a class="navbar-brand" href="<c:url value="/DataRoom/Index.kosmo"/>"><span
+			<a class="navbar-brand" href="<c:url value="/"/>"><span
 				class="glyphicon glyphicon-education"></span> <strong>KOSMO<strong></strong></a>
 		</div>
 		<!-- 화면 크기가 클때 상단에 보여지는 네비게이션바(데스크탑용) -->
