@@ -1,6 +1,7 @@
 # Spring
 
 
+기본 요청 프로세스
 
     요청 -> DispatcherServelt -> 사용자의 모든 요청을 받는다. (어떤 서블릿으로 받아야 하는지 판단)
     HandlerMapping -> DispatcherServelt -> 어떤 컨트롤러로 사용하는지 판단
