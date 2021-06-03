@@ -113,7 +113,7 @@
 			<version>1.2</version>
 		</dependency>
 
-		<!-- Test -->
+		<!-- Test 4.7에서 4.12로 변경 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
