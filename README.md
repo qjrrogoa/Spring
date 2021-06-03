@@ -538,6 +538,13 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+13] spring test
+	
+	  JUnit라이브러리 추가
+	  프로젝트 마우스 우클릭->Build Path->Configue Build path
+	  -> Add Library에서 JUnit선택
+	  
+	 
 1. 게시판 만들기
 ---
 1] 패키지 만들기
