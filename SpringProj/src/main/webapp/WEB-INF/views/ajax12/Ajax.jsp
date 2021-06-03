@@ -103,7 +103,7 @@
 		<button type="button" id="btnAjaxRequestJson">AJAX로 요청(JSON)</button>
 		<button type="button" id="btnAjaxArray">JSON배열로 받기</button>
 		<h4>JSON을 자바객체로 변환</h4>
-		<button type="button" id="btnJsonToJava">Map혹은 DTI으로 변환</button>
+		<button type="button" id="btnJsonToJava">Map혹은 DTO으로 변환</button>
 		<script>
 			//key:value로 데이터 보내기
             $('#btnAjaxKeyValue').click(function(){
