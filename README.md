@@ -61,7 +61,7 @@
     [2-3] 컨트롤러 메서드, 데이터 저장, 뷰 정보 반환
     
     
-    2] 세터를 통한 주입
+    2] 세터 를 통한 주입
     
     [1] web.xml
         p객체 사용
@@ -648,3 +648,35 @@ Controller
 
 8] View 만들기 (join.jsp)
 
+#ajax
+---
+
+1] Key=value값으로 받기
+	
+[1] jsp
+	
+	$("아이디,태그").click(function(){
+		$.ajax({
+			url:"<c:url value="서블릿"/>",
+			data:$("#폼 요소").serialize(),
+			type:"POST",
+			dataType:"JSON"
+		}).done(function(data){
+			console.log(data);
+		})	
+	});
+
+[2-1] Controller (자바빈 반환)
+	
+	@RequeestMapping("서블릿")
+	public @ResponseBody OneMemoDTO ajaxRequest(OneMemoDTO dto){
+		return dto;
+	}
+값이 들어가지 않은 다른 DTO 값들은 모두 null이 나온다
+[2-2] Controller (Map 반환)
+
+	@RequeestMapping("서블릿")
+	public @ResponseBody Map ajaxRequest(@RequestParam Map map){
+		return map;
+	}
+	
