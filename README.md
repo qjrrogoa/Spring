@@ -713,9 +713,60 @@ json으로 값을 받을 때는 @RequestBody
 		return map;
 	}
 	
-3.json배열로 받기
+3].json배열로 받기
 ---
 
+[1] jsp
 
-	}받
+	@RequestMapping(value="서블릿",produces="application/json;charset=UTF-8")
+	public @ResponseBody List ajaxArray(){
+		List list = new Vector();
+		
+		Map map = new HashMap();
+		map.put("id","김길동");
+		map.put("pwd","1234");
+		
+		Map map1 = new HashMap();
+		map.put("id","박길동");
+		map.put("pwd","1234");
+		
+		list.add(map);
+		list.add(map1);
+		return list;
+	}
+
+4]. json을 받아 자바객체로 뿌려주기
+
+[1] jsp
+
+	$("태그").click(function(){
+	var json = {title:$(":input[name=title]).val()",content:$(":content[name=content]").val()};
+	//json으로 변경
+
+		$.ajax({
+		url:"서블릿",
+		data:JSON.stringify(json), //json을 문자열로 변경시켜주는 메서드
+		type:"post"
+		dataType:"json"
+		}).done(function(data){
+			consonle.log(data)
+		})
+	})
+	
+[2-1] Controller Map으로 반환
+
+objectMapper.writeValueAsString(자바객체); //자바객체를 json형식 문자열로 변경
+
+	@RequestMapping(value="서블릿",produces="application/json;charset=UTF-8")
+	public @ResponseBdoy Map jsonToJava(@RequestBody Map map){
+		String jsonString = objectMapper.writeValueAsString(map); //Map을 json형식 문자열로 변경
+		return Map;
+	}
+	
+[2-2] Controller DTO로 반환
+
+	@RequestMapping(value="서블릿",produces="application/json;charset=UTF-8")
+	public @ResponseBdoy OneMemoDTO jsonToJava(@RequestBody OneMemoDTO dto){
+		String jsonString = objectMapper.writeValueAsString(dto); //dto를 json형식 문자열로 변경
+		return dto;
 	}
