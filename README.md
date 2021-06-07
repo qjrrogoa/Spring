@@ -680,3 +680,42 @@ Controller
 		return map;
 	}
 	
+
+2]JSON으로 받기
+---
+
+[1] jsp
+
+//json을 문자열로 변경시켜주는 메서드
+
+JSON.stringify(json)
+
+	$("태그").click(function(){
+		var json = {title:$(":input[name=title]).val()",content:$(":content[name=content]").val()};
+		//json으로 변경
+		
+		$.ajax({
+		url:"서블릿",
+		data:JSON.stringify(json), //json을 문자열로 변경시켜주는 메서드
+		type:"post"
+		dataType:"json"
+		}).done(function(data){
+			consonle.log(data)
+		})
+	})
+	
+[2] Controller
+	
+json으로 값을 받을 때는 @RequestBody
+
+	@RequestMapping(value="서블릿",produces="application/json;charset=UTF-8")
+	public @ResponseBody Map ajaxMap(@ReuqestBody Map map){
+		return map;
+	}
+	
+3.json배열로 받기
+---
+
+
+	}받
+	}
