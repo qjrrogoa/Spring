@@ -156,13 +156,19 @@
 		    <artifactId>mybatis-spring</artifactId>
 		    <version>2.0.6</version>
 		</dependency>
-		
+		<!-- 스프링 단위 테스트용 라이브러리 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		
+		<!-- 파일 업로드 : commons-io와 의존관계 존재 즉 io도 자동으로 다운됨. -->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.4</version>
+		</dependency>
+				
 
 
 	</dependencies>

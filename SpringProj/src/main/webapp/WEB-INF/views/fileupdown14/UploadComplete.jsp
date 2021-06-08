@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-<title>List.jsp</title>
+<title>UploadComplete.jsp</title>
 
 <!-- 부트스트랩 -->
 <link rel="stylesheet"
@@ -29,9 +29,19 @@
 	<!-- 실제 내용 시작 -->
 	<div class="container">
 		<div class="page-header">
-			<h1>메인 페이지<small>메인</small></h1>
+			<h1>스프링<small>파일 업로드/다운로드</small></h1>
 		</div>
-		
+		<fieldset>
+			<legend>파일 업로드 결과</legend>
+			<ul style="list-style:upper-roman;">
+				<li>올린이 : ${param.writer}</li>
+				<li>제목 : ${param.title}</li>
+				<li>원본 파일명 : ${original}</li>
+				<li>실제 서버에 저장된 파일명 : ${real}</li>
+				<li>컨텐츠 타입 : ${type}</li>
+				<li>파일 크기 : ${size}KB</li>
+			</ul>
+		</fieldset>
 	</div>
 	<!-- 실제 내용 끝 -->
 	<!--  푸터 시작 -->

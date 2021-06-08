@@ -13,75 +13,81 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 */
 @Controller
 public class IndexController {
-   
-   
-   //컨트롤러 메소드]
-   @RequestMapping("/handlermapping.do")
-   public String handlerMapping() {
-      
-      //뷰정보 반환]
-      return "handlermapping01/HandlerMapping";
-   }///////////////////handlerMapping()
-   
-   @RequestMapping("/controller.do")
-   public String controller() {
-      //뷰정보 반환]
-      return "controller02/Controller";
-   }///////////////////handlerMapping()
-   
-   @RequestMapping("/viewresolver.do")
-   public String viewresolver() {
-      //뷰정보 반환]
-      return "viewresolver03/ViewResolver";
-   }///////////////////handlerMapping()
-   
-   @RequestMapping("/returntype.do")
-   public String returntype() {
-      //뷰정보 반환]
-      return "returntype04/ReturnType";
-   }///////////////////handlerMapping()
-   
-   @RequestMapping("/injection.do")
-   public String injection() {
-      //뷰정보 반환]
-      return "injection05/Injection";
-   }///////////////////handlerMapping()
-   @RequestMapping("/annotation.do")
-   public String annotation() {
-      //뷰정보 반환]
-      return "annotation06/Annotation";
-   }///////////////////handlerMapping()
-   @RequestMapping("/database.do")
-   public String database() {
-      //뷰정보 반환]
-      return "database07/Database";
-   }///////////////////handlerMapping()
-   @RequestMapping("/resource.do")
-   public String resource() {
-      //뷰정보 반환]
-      return "resource08/Resource";
-   }///////////////////handlerMapping()
-   @RequestMapping("/validation.do")
-   public String validation() {
-      //뷰정보 반환]
-      return "validation09/Validation";
-   }///////////////////handlerMapping()
-   @RequestMapping("/dynamicsql.do")
-   public String dynamicsql() {
-      //뷰정보 반환]
-      return "dynamicsql11/DynamicSQL";
-   }///////////////////handlerMapping()
-   
-   @RequestMapping("/ajax.do")
-   public String ajax() {
-      //뷰정보 반환]
-      return "ajax12/Ajax";
-   }///////////////////handlerMapping()
+	
+	
+	//컨트롤러 메소드]
+	@RequestMapping("/handlermapping.do")
+	public String handlerMapping() {
+		
+		//뷰정보 반환]
+		return "handlermapping01/HandlerMapping";
+	}///////////////////handlerMapping()
+	
+	@RequestMapping("/controller.do")
+	public String controller() {
+		//뷰정보 반환]
+		return "controller02/Controller";
+	}///////////////////handlerMapping()
+	
+	@RequestMapping("/viewresolver.do")
+	public String viewresolver() {
+		//뷰정보 반환]
+		return "viewresolver03/ViewResolver";
+	}///////////////////handlerMapping()
+	
+	@RequestMapping("/returntype.do")
+	public String returntype() {
+		//뷰정보 반환]
+		return "returntype04/ReturnType";
+	}///////////////////handlerMapping()
+	
+	@RequestMapping("/injection.do")
+	public String injection() {
+		//뷰정보 반환]
+		return "injection05/Injection";
+	}///////////////////handlerMapping()
+	@RequestMapping("/annotation.do")
+	public String annotation() {
+		//뷰정보 반환]
+		return "annotation06/Annotation";
+	}///////////////////handlerMapping()
+	@RequestMapping("/database.do")
+	public String database() {
+		//뷰정보 반환]
+		return "database07/Database";
+	}///////////////////handlerMapping()
+	@RequestMapping("/resource.do")
+	public String resource() {
+		//뷰정보 반환]
+		return "resource08/Resource";
+	}///////////////////handlerMapping()
+	@RequestMapping("/validation.do")
+	public String validation() {
+		//뷰정보 반환]
+		return "validation09/Validation";
+	}///////////////////handlerMapping()
+	@RequestMapping("/dynamicsql.do")
+	public String dynamicsql() {
+		//뷰정보 반환]
+		return "dynamicsql11/DynamicSQL";
+	}///////////////////handlerMapping()
+	
+	@RequestMapping("/ajax.do")
+	public String ajax() {
+		//뷰정보 반환]
+		return "ajax12/Ajax";
+	}///////////////////handlerMapping()
 
-   @RequestMapping("/exception.do")
-   public String exception() {
-      //뷰정보 반환]
-      return "exception13/Exception";
-   }///////////////////handlerMapping()
-   
+	@RequestMapping("/exception.do")
+	public String exception() {
+		//뷰정보 반환]
+		return "exception13/Exception";
+	}///////////////////handlerMapping()
+	
+	@RequestMapping("/fileupdown.do")
+	public String fileupdown() {
+		//뷰정보 반환]
+		return "fileupdown14/Upload";
+	}///////////////////handlerMapping()
+	
 }
