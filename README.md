@@ -812,3 +812,13 @@ pop.xml
           <artifactId>cglib</artifactId>
           <version>3.3.0</version>
       </dependency>
+     
+#WebSocket
+
+pom.xml
+
+	<dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-websocket</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
