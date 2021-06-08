@@ -11,54 +11,50 @@ import javax.servlet.http.HttpServletResponse;
 
 public class FileUpDownUtils {
 	// [파일 이름 중복 체크용 메소드]
-
 	public static String getNewFileName(String path, String fileName) {
-	// fileName=원격.txt
-	File file = new File(path + File.separator + fileName);
-	if (!file.exists()) {
-	return fileName;
-	} 
-	else {
-	String ext = fileName.substring(fileName.lastIndexOf(".") + 1).trim();
-	String fileNameExcludeExt = fileName.substring(0, fileName.lastIndexOf("."));
-	String newFileName;
-	while (true) {
-	newFileName = "";
-	
-	if (fileNameExcludeExt.indexOf("_") != -1) {// 파일명에 _가 포함됨
-	String[] arrFiles = fileNameExcludeExt.split("_");
-	String lastName = arrFiles[arrFiles.length - 1];
-	
-	try {
-	int index = Integer.parseInt(lastName);
-	for (int i = 0; i < arrFiles.length; i++) {
-	if (i != arrFiles.length - 1)
-	newFileName += arrFiles[i] + "_";
-	else
-	newFileName += String.valueOf(index + 1);
-	}
-	newFileName += "." + ext;
-	} 
-	catch (Exception e) {
-	newFileName += fileNameExcludeExt + "_1." + ext;
-	}
-	} else {// _가 없음
-	newFileName += fileNameExcludeExt + "_1." + ext;
-	}
-	File f = new File(path + File.separator + newFileName);
-	if (f.exists()) {
-	fileNameExcludeExt = newFileName.substring(0, newFileName.lastIndexOf("."));
-	continue;
-	} else
-	break;
-	} //////////// while
-	return newFileName;
-	}
-	}
-	
+		// fileName=원격.txt
+		File file = new File(path + File.separator + fileName);
+		if (!file.exists()) {
+			return fileName;
+		} else {
+			String ext = fileName.substring(fileName.lastIndexOf(".") + 1).trim();
+			String fileNameExcludeExt = fileName.substring(0, fileName.lastIndexOf("."));
+
+			String newFileName;
+			while (true) {
+				newFileName = "";
+				if (fileNameExcludeExt.indexOf("_") != -1) {// 파일명에 _가 포함됨
+					String[] arrFiles = fileNameExcludeExt.split("_");
+					String lastName = arrFiles[arrFiles.length - 1];
+					try {
+						int index = Integer.parseInt(lastName);
+						for (int i = 0; i < arrFiles.length; i++) {
+							if (i != arrFiles.length - 1)
+								newFileName += arrFiles[i] + "_";
+							else
+								newFileName += String.valueOf(index + 1);
+						}
+						newFileName += "." + ext;
+					} catch (Exception e) {
+						newFileName += fileNameExcludeExt + "_1." + ext;
+					}
+				} else {// _가 없음
+					newFileName += fileNameExcludeExt + "_1." + ext;
+				}
+				File f = new File(path + File.separator + newFileName);
+				if (f.exists()) {
+					fileNameExcludeExt = newFileName.substring(0, newFileName.lastIndexOf("."));
+					continue;
+				} else
+					break;
+			} //////////// while
+
+			return newFileName;
+		}
+	}/////////////////////
 	//파일 다운로드 로직]
-		public static void download(HttpServletRequest request, HttpServletResponse response, String filename, String uploadDir) {
-			try {
+	public static void download(HttpServletRequest request, HttpServletResponse response, String filename, String uploadDir) {
+		try {
 			//2]파일이 저장된 서버의 물리적 경로 얻기]
 			String saveDirectory= request.getServletContext().getRealPath(uploadDir);
 			//3]파일 크기를 얻기 위한 파일 객체 생성
@@ -99,8 +95,6 @@ public class FileUpDownUtils {
 			                          필터 스트림:BufferedOutputStream
 			*/
 			//5]서버에 있는 파일에 연결할 입력 스트림 생성
-			
-			
 			BufferedInputStream bis =
 				new BufferedInputStream(new FileInputStream(file));
 			
@@ -118,8 +112,7 @@ public class FileUpDownUtils {
 			bis.close();
 			bos.close();
 		}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
+		catch(Exception e) {e.printStackTrace();}
+		
+	}/////////////download
 }

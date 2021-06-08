@@ -59,8 +59,9 @@
 				<li><a href="<c:url value="/dynamicsql.do"/>">마이바티스 동적 SQL</a></li>
 				<li><a href="<c:url value="/ajax.do"/>">Ajax요청</a></li>
 				<li><a href="<c:url value="/exception.do"/>">예외처리</a></li>
-				<li><a href="<c:url value="/fileupdown.do"/>">파일 업로드/다운로드</a></li>
-				<li><a href="<c:url value="/AOP.do"/>">AOP</a></li>
+				<li><a href="<c:url value="/fileupdown.do"/>">파일업로드/다운로드</a></li>
+				<li><a href="<c:url value="/aop.do"/>">AOP(Aspect Oriented Programming)</a></li>
+				<li><a href="<c:url value="/websocket.do"/>">웹소켓</a></li>
 			</ul>
 		</fieldset>
 		

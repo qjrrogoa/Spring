@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import javax.annotation.Resource;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -83,7 +83,8 @@ public class ValidationController {
 //		return true;
 //	}//////////////
 	// 방법2]스프링 API사용
-	@Resource(name="validator")
+	//@Resource(name="validator")
+	@Autowired
 	private FormValidator validator;
 	
 	@RequestMapping("/Validation/ValidationCheck.do")

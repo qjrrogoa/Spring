@@ -76,24 +76,28 @@ public class IndexController {
 	public String ajax() {
 		//뷰정보 반환]
 		return "ajax12/Ajax";
-	}///////////////////handlerMapping()
-
+	}///////////////////handlerMapping()	
 	@RequestMapping("/exception.do")
 	public String exception() {
 		//뷰정보 반환]
 		return "exception13/Exception";
 	}///////////////////handlerMapping()
-	
 	@RequestMapping("/fileupdown.do")
 	public String fileupdown() {
 		//뷰정보 반환]
 		return "fileupdown14/Upload";
 	}///////////////////handlerMapping()
 	
-	@RequestMapping("/AOP.do")
+	@RequestMapping("/aop.do")
 	public String aop() {
 		//뷰정보 반환]
 		return "aop15/Aop";
 	}///////////////////handlerMapping()
-	
+	@RequestMapping("/websocket.do")
+	public String websocket() {
+		//뷰정보 반환]
+		return "websocket16/Websocket";
+	}///////////////////handlerMapping()
+
+
 }

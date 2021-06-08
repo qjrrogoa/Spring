@@ -27,6 +27,15 @@ import com.kosmo.springapp.onememo.service.impl.OneMemoDAO;
 
 
 /*
+  
+  POM.XML에 의존성 추가
+  <dependency>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-test</artifactId>
+	<version>${org.springframework-version}</version>
+  </dependency>
+  및 JUNIT버전(4.7에서 4.12이상으로) 변경 변경
+  
  JUnit라이브러리 추가
  프로젝트 마우스 우클릭->Build Path->Configue Build path
  -> Add Library에서 JUnit선택
