@@ -783,9 +783,32 @@ pop.xml 추가
 	    <version>1.4</version>
 	</dependency>
 
-servler
+servlet
 	
 	<!-- .java 파일에서 mulitpart치고 임포트 값 클래스에 넣기 -->
     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
       <beans:property name="maxUploadSize" value="1048576"/> <!-- 1MB로 설정 -->       
     </beans:bean>
+
+
+#AOP
+---
+
+pop.xml
+
+	<!-- AOP용 외부 라이브러리 -->            
+      <dependency>
+          <groupId>org.aspectj</groupId>
+          <artifactId>aspectjweaver</artifactId>
+          <version>1.9.6</version>
+      </dependency>
+      <dependency>
+          <groupId>aopalliance</groupId>
+          <artifactId>aopalliance</artifactId>
+          <version>1.0</version>
+      </dependency>
+      <dependency>
+          <groupId>cglib</groupId>
+          <artifactId>cglib</artifactId>
+          <version>3.3.0</version>
+      </dependency>
