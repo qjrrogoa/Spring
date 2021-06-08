@@ -40,7 +40,7 @@
 		</selectKey>
 			
 		INSERT INTO linecomments
-		VALUES(SEQ_LINECOMMENTS.CURRVAL,#{linecomment},SYSDATE,#{no},#{id})
+		VALUES(SEQ_LINECOMMENTS.CURRVAL,#{linecomment},SYSDATE,#{id},#{no})
 	</insert>
 	
 	<update id="commentUpdate" parameterType="Map">

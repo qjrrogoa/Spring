@@ -5,9 +5,13 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,4 +26,6 @@ public class OneMemoDTO {
 	private String commentCount;	
 	//마이바티스의 ResultMap 태그의 collection태그 적용용
 	List<LineCommentDTO> comments;
+	
+	
 }

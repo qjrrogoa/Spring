@@ -13,6 +13,8 @@
 		<!--LineCommentDTO는 별칭 불필요. SELECT결과를 Map에 저장하기때문에 -->
 	</typeAliases>
 
+	
+	
 	<!-- 데이타베이스 연결정보 설정 -->
 	<!-- mybatis-spring-2.x.jar의 API사용시 연결정보 불필요 -->
 	<!--  

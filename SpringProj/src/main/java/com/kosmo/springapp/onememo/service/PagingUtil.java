@@ -1,13 +1,9 @@
 ﻿package com.kosmo.springapp.onememo.service;
-
 public class PagingUtil {
-
 	public static String pagingText(int totalRecordCount,int pageSize,int blockPage,int nowPage,String page){
-		String pagingStr="";
-		
+		String pagingStr="";		
 		//1.전체 페이지 구하기
 		int totalPage= (int)(Math.ceil(((double)totalRecordCount/pageSize)));
-		
 		int intTemp = ((nowPage - 1) / blockPage) * blockPage + 1;
 
 		//처음 및 이전을 위한 로직
@@ -104,6 +100,5 @@ public class PagingUtil {
 		}
 		pagingStr+="</ul></nav>";
 		return pagingStr;
-	}
-	
+	}	
 }
