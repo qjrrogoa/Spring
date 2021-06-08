@@ -770,3 +770,16 @@ objectMapper.writeValueAsString(자바객체); //자바객체를 json형식 문�
 		String jsonString = objectMapper.writeValueAsString(dto); //dto를 json형식 문자열로 변경
 		return dto;
 	}
+	
+	
+#fileupload
+---
+	
+pop.xml 추가
+
+	<dependency>
+	    <groupId>commons-fileupload</groupId>
+	    <artifactId>commons-fileupload</artifactId>
+	    <version>1.4</version>
+	</dependency>
+
