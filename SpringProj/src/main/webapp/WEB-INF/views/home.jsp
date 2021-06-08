@@ -60,6 +60,7 @@
 				<li><a href="<c:url value="/ajax.do"/>">Ajax요청</a></li>
 				<li><a href="<c:url value="/exception.do"/>">예외처리</a></li>
 				<li><a href="<c:url value="/fileupdown.do"/>">파일 업로드/다운로드</a></li>
+				<li><a href="<c:url value="/AOP.do"/>">AOP</a></li>
 			</ul>
 		</fieldset>
 		

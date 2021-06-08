@@ -44,7 +44,7 @@
 	
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<beans:bean p:order="3" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
@@ -261,4 +261,21 @@
     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="1048576"/> <!-- 1MB로 설정 -->    	
 	</beans:bean>
+	
+	
+	<!-- 
+	스프링에서 제공하는 API 사용해서 다운로드 구현시  아래 빈 등록 과정 반드시 필요
+           단,스프링에서 제공하는 API 미 사용시에는 불필요 
+    1]InternalResourceViewResolver 빈 등록 
+          -다른 ViewResolver사용시 더 이상 제공해주지 않음
+          -View객체로 InternalResourceView객체사용
+           InternalResourceView객체는 JSP페이지를 뷰로 사용 즉 JSP페이지로 매핑하는 리졸버(order=3으로 변경)
+    2]org.springframework.web.servlet.view.BeanNameViewResolver 등록
+	     -View객체로 JSP가 아닌 View타입의 객체를 매핑하는 리졸버
+	     -이 뷰리졸버를 기본 뷰리졸버보다 우선 순위가 높게 설정     
+    -->
+	<beans:bean p:order="1" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+	
+	<beans:bean id="downloadView" class="com.kosmo.springapp.basic.fileupdown.DownloadView"/>
+		
 </beans:beans>

@@ -2,11 +2,15 @@ package com.kosmo.springapp.basic.fileupdown;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,6 +58,7 @@ public class UploadController {
 //		req.setAttribute("real", upload.getOriginalFilename());
 //		req.setAttribute("type", upload.getContentType()); 
 //		req.setAttribute("size", (int)Math.ceil(upload.getSize()/1024.0)); 
+//		//5]뷰정보 반환
 //		return "fileupdown14/UploadComplete";
 //	}
 	
@@ -66,12 +71,33 @@ public class UploadController {
 	   ※input type="file" name="파라미터명"을 받을때는 getFile("파라미터명")
 	   기타 파라미터 받을때는 getParameter("파라미터명")로 받는다.
 	*/
+//	@RequestMapping("/FileUpDown/Upload.do")
+//	public String upload(MultipartHttpServletRequest mhsr) throws IllegalStateException, IOException {
+//		//1]서버의 물리적 경로 얻기
+//		String physicalPath = mhsr.getServletContext().getRealPath("/upload");
+//		//1-1] MultipartHttpServletRequest객체의 getFile("파라미터명")메서드로 MultipartFile 객체 얻기
+//		MultipartFile upload = mhsr.getFile("upload");
+//		//2]File객체 생성
+//		//2-1] 파일 중복시 이름 변경
+//		String renameFilename=FileUpDownUtils.getNewFileName(physicalPath, upload.getOriginalFilename());
+//		File dest = new File(physicalPath+File.separator+renameFilename);
+//		//3]업로드 처리
+//		upload.transferTo(dest);
+//		//4]리퀘스트 영역에 데이터 저장
+//		mhsr.setAttribute("original", upload.getOriginalFilename()); 
+//		mhsr.setAttribute("real", renameFilename);
+//		mhsr.setAttribute("type", upload.getContentType()); 
+//		mhsr.setAttribute("size", (int)Math.ceil(upload.getSize()/1024.0)); 
+//		//5]뷰정보 반환
+//		return "fileupdown14/UploadComplete";
+//	}
+	
+	//방법3]커맨트 객체로 받기
 	@RequestMapping("/FileUpDown/Upload.do")
-	public String upload(MultipartHttpServletRequest mhsr) throws IllegalStateException, IOException {
+	public String upload(UploadCommand cmd, HttpServletRequest req) throws IllegalStateException, IOException {
 		//1]서버의 물리적 경로 얻기
-		String physicalPath = mhsr.getServletContext().getRealPath("/upload");
-		//1-1] MultipartHttpServletRequest객체의 getFile("파라미터명")메서드로 MultipartFile 객체 얻기
-		MultipartFile upload = mhsr.getFile("upload");
+		String physicalPath = req.getServletContext().getRealPath("/upload");
+		MultipartFile upload = cmd.getUpload();
 		//2]File객체 생성
 		//2-1] 파일 중복시 이름 변경
 		String renameFilename=FileUpDownUtils.getNewFileName(physicalPath, upload.getOriginalFilename());
@@ -79,12 +105,31 @@ public class UploadController {
 		//3]업로드 처리
 		upload.transferTo(dest);
 		//4]리퀘스트 영역에 데이터 저장
-		mhsr.setAttribute("original", upload.getOriginalFilename()); 
-		mhsr.setAttribute("real", renameFilename);
-		mhsr.setAttribute("type", upload.getContentType()); 
-		mhsr.setAttribute("size", (int)Math.ceil(upload.getSize()/1024.0)); 
+		req.setAttribute("original", upload.getOriginalFilename()); 
+		req.setAttribute("real", renameFilename);
+		req.setAttribute("type", upload.getContentType()); 
+		req.setAttribute("size", (int)Math.ceil(upload.getSize()/1024.0)); 
+		//5]뷰정보 반환
 		return "fileupdown14/UploadComplete";
 	}
-	
+	//목록 이동용 컨트롤러 메서드
+	@RequestMapping("/FileUpDown/List.do")
+	public String list(UploadCommand cmd,HttpServletRequest req) {
+		//방법1]컬렉션 저장
+		List<Map> list = new Vector();
+		String physicalPath= req.getServletContext().getRealPath("/upload");
+		File  file = new File(physicalPath);
+		File[] files=file.listFiles();
+		for(File f:files){
+			Map map = new HashMap();
+			map.put("name",f.getName());
+			map.put("size",(int)Math.ceil(f.length()/1024.0));
+			list.add(map);
+		}
+		req.setAttribute("list",list);
+		//방법2] File[]배열
+		req.setAttribute("files",files);
+		return "fileupdown14/List";
+	}
 	
 }

@@ -90,4 +90,10 @@ public class IndexController {
 		return "fileupdown14/Upload";
 	}///////////////////handlerMapping()
 	
+	@RequestMapping("/AOP.do")
+	public String aop() {
+		//뷰정보 반환]
+		return "aop15/Aop";
+	}///////////////////handlerMapping()
+	
 }
