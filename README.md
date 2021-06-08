@@ -783,3 +783,9 @@ pop.xml 추가
 	    <version>1.4</version>
 	</dependency>
 
+servler
+	
+	<!-- .java 파일에서 mulitpart치고 임포트 값 클래스에 넣기 -->
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+      <beans:property name="maxUploadSize" value="1048576"/> <!-- 1MB로 설정 -->       
+    </beans:bean>
