@@ -824,7 +824,7 @@ pom.xml
       </dependency>
       
 #tiles
-
+---
 pop.xml
 
 	<dependency>
@@ -841,4 +841,30 @@ pop.xml
 	    <groupId>commons-collections</groupId>
 	    <artifactId>commons-collections</artifactId>
 	    <version>3.2.2</version>
+	</dependency>
+	
+# security
+---
+
+pom.xml
+
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-core</artifactId>
+	    <version>4.2.8.RELEASE</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-web</artifactId>
+	    <version>4.2.8.RELEASE</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-config</artifactId>
+	    <version>4.2.8.RELEASE</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-taglibs</artifactId>
+		<version>4.2.8.RELEASE</version>
 	</dependency>
