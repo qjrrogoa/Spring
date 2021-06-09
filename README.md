@@ -822,3 +822,23 @@ pom.xml
           <artifactId>spring-websocket</artifactId>
           <version>${org.springframework-version}</version>
       </dependency>
+      
+#tiles
+
+pop.xml
+
+	<dependency>
+	    <groupId>org.apache.tiles</groupId>
+	    <artifactId>tiles-core</artifactId>
+	    <version>3.0.8</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.tiles</groupId>
+	    <artifactId>tiles-jsp</artifactId>
+	    <version>3.0.8</version>
+	</dependency>
+	<dependency> 
+	    <groupId>commons-collections</groupId>
+	    <artifactId>commons-collections</artifactId>
+	    <version>3.2.2</version>
+	</dependency>
