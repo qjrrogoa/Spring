@@ -62,6 +62,7 @@
 				<li><a href="<c:url value="/fileupdown.do"/>">파일업로드/다운로드</a></li>
 				<li><a href="<c:url value="/aop.do"/>">AOP(Aspect Oriented Programming)</a></li>
 				<li><a href="<c:url value="/websocket.do"/>">웹소켓</a></li>
+				<li><a href="<c:url value="/tiles.do"/>">타일즈</a></li>
 			</ul>
 		</fieldset>
 		

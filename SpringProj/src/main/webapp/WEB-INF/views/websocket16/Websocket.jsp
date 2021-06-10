@@ -72,7 +72,7 @@
 		/*
 		채팅 테스트
 		localhost를 아이피로 변경 소스 및 브라우저 URL도 변경
-		그리고 인바운드 규칙추가 403,8080
+		그리고 인바운드 규칙추가 403,9090
 	    */
 	  	//웹소켓 객체 저장용
 	  	var wsocket;
@@ -104,8 +104,11 @@
 	 $('#message').on('keypress',function(e){
 		 console.log('e.keyCode:%s,e.which:%s',e.keyCode,e.which);
 		 var keyCode = e.keyCode ? e.keyCode : e.which;
-		 if(keyCode==13)//엔터 입력
+		 if(keyCode==13){//엔터 입력
 			 sendMessage();
+		 	
+			
+		 }
 		 
 	 });
 		//함수 정의]
@@ -131,13 +134,13 @@
 		//서버로 메시지 전송하는 함수]
 		function sendMessage(){
 			//서버로 메시지 전송
-			wsocket.send("msg:"+nickname+':'+$('#message').val());//msg:Superman:안녕
+			wsocket.send("msg:"+nickname+'>>'+$('#message').val());//msg:Superman:안녕
 			//DIV(대화영역)에 메시지 출력
 			appendMessage($('#message').val());
-			//기존 메시지 클리어
-			$('#message').empty();
+			//기존 메시지 클리어			
+			$('#message').val("");			
 			//포커스 주기
-			$('#message').focus();
+			$('#message').focus();			
 		}
 	</script>
 </body>

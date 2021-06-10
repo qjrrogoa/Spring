@@ -98,6 +98,22 @@ public class IndexController {
 		//뷰정보 반환]
 		return "websocket16/Websocket";
 	}///////////////////handlerMapping()
+	/*
+	[스프링 타일즈 적용시]- 컨트럴러 메소드에서 문자열로 리턴시
+	.do로 포워딩 혹은 리다이렉트 : 앞에 "forward:" 혹은  "redirect:"를 붙인다
+	.jsp(UI가 필요한 jsp)로 포워딩 : .tiles를 붙인다
+	.jsp(UI가 필요없는 jsp)로 포워딩: "forward:" 혹은  "redirect:"를 붙일때
+	                           /WEB-INF/~로시작하는 전체 경로 그리고 .jsp를 붙인다 
+	 
+	 */
+	@RequestMapping("/tiles.do")
+	public String tiles() {
+		//뷰정보 반환]
+		//tiles17/Tiles.tiles이 다음 설정(/WEB-INF/views/{1}/{2}.jsp)을 적용받아
+		//{1}부분이 tiles17으로 {2} Tiles로 tiles는 jsp로 매핑된다
+		//즉 WEB-INF/views/tiles17/Tiles.jsp 뷰가 서비스된단
+		return "tiles17/Tiles.tiles";
+	}///////////////////handlerMapping()
 
 
 }

@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,7 +29,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 
-@SessionAttributes({"id"})
+//@SessionAttributes({"id"})//씨큐리티 사용시 주석
 @RestController
 public class CommentController {
 	//서비스 주입]
@@ -62,7 +64,10 @@ public class CommentController {
 	private ObjectMapper mapper;
 	
 	@GetMapping(value="/OneMemo/Comment/List.do",produces = "text/plain;charset=UTF-8")	
-	public String list(@ModelAttribute("id") String id, @RequestParam Map map) throws JsonProcessingException {
+	public String list(
+			//@ModelAttribute("id") String id, 
+			Authentication auth,
+			@RequestParam Map map) throws JsonProcessingException {
 		//서비스 호출]
 		List<Map> list=commentService.selectList(map);
 		//System.out.println("데이타베이스에서 조회:"+list.get(0).get("LPOSTDATE"));
@@ -85,16 +90,22 @@ public class CommentController {
 	}
 	//코멘트 입력처리]
 	@PostMapping(value="/OneMemo/Comment/Write.do",produces = "text/plain;charset=UTF-8")
-	public String write(@ModelAttribute("id") String id,@RequestParam Map map) {
-		map.put("id", id);//(씨큐리티 미 사용시)한줄 댓글 작성자의 아이디를 맵에 설정
-		
+	public String write(
+			//@ModelAttribute("id") String id,
+			Authentication auth,
+			@RequestParam Map map) {
+		//map.put("id", id);//(씨큐리티 미 사용시)한줄 댓글 작성자의 아이디를 맵에 설정
+		map.put("id", ((UserDetails)auth.getPrincipal()).getUsername());
 		String name=commentService.insert(map);		
 		
 		return name;//댓글 작성자 이름 반환
 	}////////////////////
 	//코멘트 수정처리]
 	@PostMapping(value="/OneMemo/Comment/Edit.do",produces = "text/plain;charset=UTF-8")
-	public String update(@ModelAttribute("id") String id,@RequestParam Map map) {
+	public String update(
+			//@ModelAttribute("id") String id,
+			Authentication auth,
+			@RequestParam Map map) {
 		System.out.println("댓글의 키값:"+map.get("lno"));
 		System.out.println("CommentController:"+map.get("lno"));
 		commentService.update(map);
@@ -103,7 +114,10 @@ public class CommentController {
 	}
 	
 	@PostMapping(value="/OneMemo/Comment/Delete.do",produces = "text/plain;charset=UTF-8")
-	public String delete(@ModelAttribute("id") String id,@RequestParam  Map map) {		
+	public String delete(
+			//@ModelAttribute("id") String id,
+			Authentication auth,
+			@RequestParam  Map map) {		
 		System.out.println("삭제할 키:"+map.get("lno"));
 		commentService.delete(map);	
 		return "삭제 성공";

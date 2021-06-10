@@ -1,84 +1,110 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-<title>Login.jsp</title>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<!-- 부트스트랩 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
-<!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-<body>
-	<!-- 네비게이션 시작 -->
-	<jsp:include page="/WEB-INF/views/templates/Top.jsp" />
-	<!-- 네비게이션 끝 -->
-	<!-- 실제 내용 시작 -->
-	<div class="container">
-		<div class="page-header">
-			<h1>
-				한줄 메모 게시판<small>로그인 페이지</small>
-			</h1>
-		</div>	
-		<c:if test="${! empty NotMember }">﻿
-			<div class="row">
-				<div class="col-xs-offset-1 col-xs-6 alert alert-warning fade in">
-					<button class="close" data-dismiss="alert">
-						<span>×</span>
-					</button>
-					${NotMember }
-				</div>
-			</div>
-		</c:if>	
-		<div class="row">
-			<c:if test="${not empty sessionScope.id }" var="isLogin">
-				<div class="col-xs-offset-1 col-xs-6 alert alert-success">${sessionScope.id }님	즐감하세요</div>
-			</c:if>
-			
-			<c:if test="${not isLogin }">
-				<div class="col-sm-12">
-					<form class="form-horizontal" method="post"
-						action="<c:url value='/OneMemo/Auth/LoginProcess.do'/>">
-						<div class="form-group">
-							<label for="id" class="col-sm-2 control-label">아이디</label>
-							<div class="col-sm-3">
-								<input type="text" class="form-control" name="id" id="id"
-									placeholder="아이디를 입력하세요">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="pwd" class="col-sm-2 control-label">비밀번호</label>
-							<div class="col-sm-3">
-								<input type="password" class="form-control" id="pwd" name="pwd"
-									placeholder="비밀번호를 입력하세요">
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								<button type="submit" class="btn btn-danger">로그인</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</c:if>			
-		</div>		﻿
+<!-- 실제 내용 시작 -->
+<div class="container">
+	<div class="page-header">
+		<h1>
+			한줄 메모 게시판<small>로그인 페이지</small>
+		</h1>
 	</div>
-	<!-- 실제 내용 끝 -->
-	<!--  푸터 시작 -->
-	<jsp:include page="/WEB-INF/views/templates/Footer.jsp" />
-	<!-- 푸터 끝 -->
-</body>
-</html>
+	<!-- 스프링 씨큐러티 사용하지 않을때 -->
+	<%--	
+	<c:if test="${! empty NotMember }">﻿
+			<div class="row">
+			<div class="col-xs-offset-1 col-xs-6 alert alert-warning fade in">
+				<button class="close" data-dismiss="alert">
+					<span>×</span>
+				</button>
+				${NotMember }
+			</div>
+		</div>
+	</c:if>
+	<div class="row">
+		<c:if test="${not empty sessionScope.id }" var="isLogin">
+			<div class="col-xs-offset-1 col-xs-6 alert alert-success">${sessionScope.id }님
+				즐감하세요</div>
+		</c:if>
+
+		<c:if test="${not isLogin }">
+			<div class="col-sm-12">
+				<form class="form-horizontal" method="post"
+					action="<c:url value='/OneMemo/Auth/LoginProcess.do'/>">
+					<div class="form-group">
+						<label for="id" class="col-sm-2 control-label">아이디</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" name="id" id="id"
+								placeholder="아이디를 입력하세요">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="pwd" class="col-sm-2 control-label">비밀번호</label>
+						<div class="col-sm-3">
+							<input type="password" class="form-control" id="pwd" name="pwd"
+								placeholder="비밀번호를 입력하세요">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-danger">로그인</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</c:if>
+	</div>
+	--%>
+	<!-- 스프링 씨큐러티 사용 -->
+	
+	<!-- 아이디와 비번 불일치로 인한 인증 실패 -->
+	<c:if test="${not empty param.NotLogin }">
+		<div class="row">
+			<div class="col-xs-offset-1 col-xs-6 alert alert-warning fade in">
+				<button class="close" data-dismiss="alert">
+					<span>×</span>
+				</button>
+				아이디와 비번이 일치하지 않아요(인증실패)
+			</div>
+		</div>
+	</c:if>
+	
+	<div class="row">
+		<!--  인증된 사용자라면 즉 아이디와 비번일치 -->
+		<sec:authorize access="isAuthenticated()">
+			<div class="col-xs-offset-1 col-xs-6 alert alert-success"><sec:authentication property="principal.username"/> 님
+				즐감하세요</div>
+		</sec:authorize>
+		<!-- 인증되지 않은 모든 사용자인 경우:로그인 폼 보여주기 -->
+		<sec:authorize access="isAnonymous()">
+			<div class="col-sm-12">
+				<form class="form-horizontal" method="post"
+					action="<c:url value='/OneMemo/Auth/LoginProcess.do'/>">
+					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"/>
+					<div class="form-group">
+						<label for="id" class="col-sm-2 control-label">아이디</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" name="id" id="id"
+								placeholder="아이디를 입력하세요">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="pwd" class="col-sm-2 control-label">비밀번호</label>
+						<div class="col-sm-3">
+							<input type="password" class="form-control" id="pwd" name="pwd"
+								placeholder="비밀번호를 입력하세요">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-danger">로그인</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</sec:authorize>
+	</div>
+	﻿
+</div>
+<!-- 실제 내용 끝 -->
