@@ -822,3 +822,76 @@ pom.xml
           <artifactId>spring-websocket</artifactId>
           <version>${org.springframework-version}</version>
       </dependency>
+      
+#tiles
+---
+pop.xml
+
+	<dependency>
+	    <groupId>org.apache.tiles</groupId>
+	    <artifactId>tiles-core</artifactId>
+	    <version>3.0.8</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.tiles</groupId>
+	    <artifactId>tiles-jsp</artifactId>
+	    <version>3.0.8</version>
+	</dependency>
+	<dependency> 
+	    <groupId>commons-collections</groupId>
+	    <artifactId>commons-collections</artifactId>
+	    <version>3.2.2</version>
+	</dependency>
+	
+# security
+---
+
+pom.xml
+
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-core</artifactId>
+	    <version>4.2.8.RELEASE</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-web</artifactId>
+	    <version>4.2.8.RELEASE</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-config</artifactId>
+	    <version>4.2.8.RELEASE</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-taglibs</artifactId>
+		<version>4.2.8.RELEASE</version>
+	</dependency>
+	
+web.xml
+
+	<!-- spring-security filter -->
+   	<!-- 필터명은 반드시 springSecurityFilterChain으로-->
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern><!-- /*로 모든 요청을 security 필터를 이용 -->
+	</filter-mapping> 
+	<!-- 스프링 씨큐러티 설정 파일은 반드시 컨텍스트 초기화 파라미터로
+	     왜냐하면 springSecurityFilterChain 이 시큐러티 관련 설정파일을 찾음
+     -->
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/spring/root-context.xml
+			/WEB-INF/spring/security/security-context.xml
+		</param-value>
+	</context-param> 
