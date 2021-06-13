@@ -885,7 +885,7 @@ web.xml
 		<url-pattern>/*</url-pattern><!-- /*로 모든 요청을 security 필터를 이용 -->
 	</filter-mapping> 
 	<!-- 스프링 씨큐러티 설정 파일은 반드시 컨텍스트 초기화 파라미터로
-	     왜냐하면 springSecurityFilterChain 이 시큐러티 관련 설정파일을 찾음
+	    springSecurityFilterChain 이 시큐러티 관련 설정파일을 찾음
      -->
 
 	<context-param>
